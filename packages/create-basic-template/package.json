@@ -1,0 +1,29 @@
+{
+  "name": "create-basic-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "create-basic-template": "index.js",
+    "cva": "index.js"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "common-template",
+    "后台模板",
+    "basic-template",
+    "management-system"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "kolorist": "^1.5.1",
+    "minimist": "^1.2.5",
+    "prompts": "^2.4.2"
+  }
+}
