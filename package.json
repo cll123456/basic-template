@@ -14,6 +14,33 @@
     "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "prettier": "^2.5.1"
-  }
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "eslint": "^8.9.0",
+    "eslint-define-config": "^1.2.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.5.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.4",
+    "prettier": "^2.5.1",
+    "simple-git-hooks": "^2.7.0",
+    "typescript": "^4.6.2"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "packages/*/{src,types}/**/*.ts": [
+      "eslint --ext .ts"
+    ],
+    "packages/*/src/**/*.js": "eslint --fix",
+    "packages/**/*.d.ts": [
+      "eslint --ext .ts"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged --concurrent false"
+  },
+  "packageManager": "pnpm@6.30.0"
 }
