@@ -8,13 +8,13 @@ import { isExternal } from './utils/validate'
 import { useDynamicTitle } from './hooks/dynamicTitle'
 
 /**
- * 配置进度条，不需要小圈圈 
+ * 配置进度条，不需要小圈圈
  */
-NProgress.configure({ showSpinner: false });
+NProgress.configure({ showSpinner: false })
 /**
  * 白名单
  */
-const whiteList = ['/login', '/auth-redirect', '/bind', '/register'];
+const whiteList = ['/login', '/auth-redirect', '/bind', '/register']
 
 /**
  * 全局路由守卫
@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
   // token存在
   if (getToken()) {
     to.meta.title && store.dispatch('settings/setTitle', to.meta.title)
-    to.meta.title && useDynamicTitle();
+    to.meta.title && useDynamicTitle()
     /* has token*/
     if (to.path === '/login') {
       next({ path: '/' })
@@ -33,23 +33,26 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.roles.length === 0) {
         // 判断当前用户是否已拉取完user_info信息
-        store.dispatch('GetInfo').then(() => {
-          store.dispatch('GenerateRoutes').then(accessRoutes => {
-            // 根据roles权限生成可访问的路由表
-            accessRoutes.forEach(r => {
-              if (!isExternal(r.path) || r.path !== 'http://ruoyi.vip') {
-                // // 动态添加可访问路由表
-                router.addRoute(r)
-              }
+        store
+          .dispatch('GetInfo')
+          .then(() => {
+            store.dispatch('GenerateRoutes').then((accessRoutes) => {
+              // 根据roles权限生成可访问的路由表
+              accessRoutes.forEach((r) => {
+                if (!isExternal(r.path) || r.path !== 'http://ruoyi.vip') {
+                  // // 动态添加可访问路由表
+                  router.addRoute(r)
+                }
+              })
+              next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
             })
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
           })
-        }).catch(err => {
-          store.dispatch('LogOut').then(() => {
-            Message.error(err)
-            next({ path: '/' })
+          .catch((err) => {
+            store.dispatch('LogOut').then(() => {
+              Message.error(err)
+              next({ path: '/' })
+            })
           })
-        })
       } else {
         next()
       }

@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { praseStrEmpty } from "@/utils/ruoyi";
+import { praseStrEmpty } from '@/utils/ruoyi'
 
 // 查询用户列表
 export function listUser(query) {
@@ -103,7 +103,7 @@ export function updateUserPwd(oldPassword, newPassword) {
 // 导出用户
 export function exportUser(query) {
   return request({
-    url: '/system/user/export', 
+    url: '/system/user/export',
     method: 'get',
     params: query
   })
@@ -134,8 +134,6 @@ export function updateAuthRole(data) {
     params: data
   })
 }
-
-
 
 // 下载用户导入模板
 export function importUserTemplate() {

@@ -1,46 +1,46 @@
 <script setup>
-import { ref, computed, watch } from '@vue/composition-api';
-import variable from './../../../assets/styles/variables.module.scss';
+import { ref, computed, watch } from '@vue/composition-api'
+import variable from './../../../assets/styles/variables.module.scss'
 import originElement from 'element-ui/lib/theme-chalk/index.css'
-import axios from 'axios';
-import { ELEMENT_SPECIAL_ID } from '../../../config/commonConfig';
-import { getElColor } from '../../../utils/ruoyi';
-import { Loading, Message } from 'element-ui';
-import { useDynamicTitle } from '../../../hooks/dynamicTitle';
+import axios from 'axios'
+import { ELEMENT_SPECIAL_ID } from '../../../config/commonConfig'
+import { getElColor } from '../../../utils/ruoyi'
+import { Loading, Message } from 'element-ui'
+import { useDynamicTitle } from '../../../hooks/dynamicTitle'
 
 /**
  * 颜色变量
  */
-const variables = computed(() => variable);
+const variables = computed(() => variable)
 /**仓库*/
 import store from '@/store'
 
 /**展示抽屉 */
-const showSettings = ref(false);
+const showSettings = ref(false)
 /**
  * 当前的主题颜色
  */
-const theme = ref(store.state.settings.theme);
+const theme = ref(store.state.settings.theme)
 /**
  * 当前侧边栏的主题
  */
-const sideTheme = ref(store.state.settings.sideTheme);
+const sideTheme = ref(store.state.settings.sideTheme)
 
 /**
  * 系统设置
  */
-const storeSettings = computed(() => store.state.settings);
+const storeSettings = computed(() => store.state.settings)
 
 /**自定义颜色form */
 const customForm = ref({
   menuBgColor: '',
   menuTextColor: '',
-  headerTextColor: '',
+  headerTextColor: ''
 })
 /**自定义颜色 ref */
-const customFormRef = ref(null);
+const customFormRef = ref(null)
 /**展示自定义主题的弹框 */
-const showCustomDia = ref(false);
+const showCustomDia = ref(false)
 /**打开自定义颜色弹框 */
 const openCustomDia = () => {
   customForm.value = {
@@ -48,17 +48,16 @@ const openCustomDia = () => {
     menuTextColor: storeSettings.value.menuTextColor,
     headerTextColor: storeSettings.value.headerTextColor
   }
-  showCustomDia.value = true;
+  showCustomDia.value = true
 }
 /**改变主题 */
 const changeTheme = () => {
-  handleTheme('theme-custom',
-    {
-      menuBgColor: customForm.value.menuBgColor,
-      menuTextColor: customForm.value.menuTextColor,
-      headerTextColor: customForm.value.menuTextColor,
-    });
-  showCustomDia.value = false;
+  handleTheme('theme-custom', {
+    menuBgColor: customForm.value.menuBgColor,
+    menuTextColor: customForm.value.menuTextColor,
+    headerTextColor: customForm.value.menuTextColor
+  })
+  showCustomDia.value = false
 }
 
 /**选择主题 */
@@ -77,8 +76,7 @@ const handleTheme = (val, menuStyleObj) => {
       })
     }
   }
-  sideTheme.value = val;
-
+  sideTheme.value = val
 }
 /**自定义颜色的数组 */
 const predefineColors = ref([
@@ -89,7 +87,7 @@ const predefineColors = ref([
   '#90ee90',
   '#00ced1',
   '#1e90ff',
-  '#c71585',
+  '#c71585'
 ])
 /** 当前的主题颜色 */
 const curThemes = ref({
@@ -97,7 +95,7 @@ const curThemes = ref({
   dangerColor: storeSettings.value.dangerColor,
   warningColor: storeSettings.value.warningColor,
   infoColor: storeSettings.value.infoColor,
-  successColor: storeSettings.value.successColor,
+  successColor: storeSettings.value.successColor
 })
 
 /**把数据存入localstorage */
@@ -106,38 +104,38 @@ const saveSettingToLocal = () => {
     lock: true,
     text: '正在保存主题,玩命加载中……',
     spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.7)',
+    background: 'rgba(0, 0, 0, 0.7)'
   })
   let defaultSettings = {
-    "topNav": storeSettings.value.topNav,
-    "tagsView": storeSettings.value.tagsView,
-    "fixedHeader": storeSettings.value.fixedHeader,
-    "sidebarLogo": storeSettings.value.sidebarLogo,
-    "dynamicTitle": storeSettings.value.dynamicTitle,
-    "sideTheme": storeSettings.value.sideTheme,
-    "menuBgColor": storeSettings.value.menuBgColor,
-    "menuTextColor": storeSettings.value.menuTextColor,
-    "headerTextColor": storeSettings.value.headerTextColor,
-    "theme": storeSettings.value.theme,
-    "dangerColor": storeSettings.value.dangerColor,
-    "warningColor": storeSettings.value.warningColor,
-    "infoColor": storeSettings.value.infoColor,
-    "successColor": storeSettings.value.successColor,
-  };
+    topNav: storeSettings.value.topNav,
+    tagsView: storeSettings.value.tagsView,
+    fixedHeader: storeSettings.value.fixedHeader,
+    sidebarLogo: storeSettings.value.sidebarLogo,
+    dynamicTitle: storeSettings.value.dynamicTitle,
+    sideTheme: storeSettings.value.sideTheme,
+    menuBgColor: storeSettings.value.menuBgColor,
+    menuTextColor: storeSettings.value.menuTextColor,
+    headerTextColor: storeSettings.value.headerTextColor,
+    theme: storeSettings.value.theme,
+    dangerColor: storeSettings.value.dangerColor,
+    warningColor: storeSettings.value.warningColor,
+    infoColor: storeSettings.value.infoColor,
+    successColor: storeSettings.value.successColor
+  }
   // 把配置好的风格存入localStoreage
-  localStorage.setItem("layout-setting", JSON.stringify(defaultSettings));
-  loading.close();
-  showSettings.value = false;
+  localStorage.setItem('layout-setting', JSON.stringify(defaultSettings))
+  loading.close()
+  showSettings.value = false
 }
 const resetSetting = () => {
   ElLoading.service({
     lock: true,
-    text: "正在清除设置缓存并刷新，请稍后...",
-    spinner: "el-icon-loading",
-    background: "rgba(0, 0, 0, 0.7)"
-  });
-  localStorage.removeItem("layout-setting")
-  setTimeout("window.location.reload()", 1000)
+    text: '正在清除设置缓存并刷新，请稍后...',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  })
+  localStorage.removeItem('layout-setting')
+  setTimeout('window.location.reload()', 1000)
 }
 /**是否需要tagview */
 const tagsView = computed({
@@ -171,7 +169,6 @@ const sidebarLogo = computed({
   }
 })
 
-
 /**是否需要侧边栏的动态网页的title */
 const dynamicTitle = computed({
   get: () => storeSettings.value.dynamicTitle,
@@ -185,7 +182,6 @@ const dynamicTitle = computed({
   }
 })
 
-
 /**当主题发生改变，请求在线的网站，生成颜色 */
 watch(theme, (val) => {
   genColorOnline(val)
@@ -196,7 +192,7 @@ const genColorOnline = (color) => {
     lock: true,
     text: '正在获取在线主题,玩命加载中……',
     spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.7)',
+    background: 'rgba(0, 0, 0, 0.7)'
   })
   axios({
     url: '/onlineColor/api/painter/support',
@@ -204,44 +200,46 @@ const genColorOnline = (color) => {
     params: {
       primary: color.split('#')[1]
     }
-  }).then(res => {
-    //  这里获取到的是一个数组，数组里面结构如下
-    /**
+  })
+    .then((res) => {
+      //  这里获取到的是一个数组，数组里面结构如下
+      /**
      * danger: (9) ['#FDD4D2', '#FBA7AB', '#F3798C', '#E7567B', '#D82463', '#B91A61', '#9B125D', '#7D0B55', '#67064F']
     info: (9) ['#CDF0FD', '#9CDCFB', '#69C0F5', '#43A3EC', '#0B79E0', '#085DC0', '#0545A1', '#033181', '#02226B']
     primary: (9) ['#FCCFD9', '#F9A0BD', '#EE6EA5', '#DD4897', '#C71585', '#AB0F80', '#8F0A78', '#73066B', '#5D045F']
     success: (9) ['#EBFBD4', '#D4F7AA', '#B0E97B', '#8AD357', '#5AB728', '#419D1D', '#2D8314', '#1B6A0C', '#0F5707']
     warning: (9) ['#FFF4CC', '#FFE699', '#FFD466', '#FFC23F', '#FFA500', '#DB8500', '#B76900', '#934F00', '#7A3D00']F
      */
-    // 判断当前的primary颜色下标，获取danger, info, success, warning
-    const primaryIndex = res.data.primary.indexOf(color);
-    /**需要替换el的主题 */
-    const newThemes = {
-      theme: color,
-      dangerColor: res.data.danger[primaryIndex],
-      warningColor: res.data.warning[primaryIndex],
-      infoColor: res.data.info[primaryIndex],
-      successColor: res.data.success[primaryIndex],
-    }
-
-    //设置颜色
-    settingTheme(curThemes.value, newThemes);
-    loading.close();
-    Message.success('设置成功！')
-
-    // 保存到store中
-    for (const key in newThemes) {
-      if (Object.hasOwnProperty.call(newThemes, key)) {
-        store.dispatch('settings/changeSetting', {
-          key: key,
-          value: newThemes[key]
-        })
+      // 判断当前的primary颜色下标，获取danger, info, success, warning
+      const primaryIndex = res.data.primary.indexOf(color)
+      /**需要替换el的主题 */
+      const newThemes = {
+        theme: color,
+        dangerColor: res.data.danger[primaryIndex],
+        warningColor: res.data.warning[primaryIndex],
+        infoColor: res.data.info[primaryIndex],
+        successColor: res.data.success[primaryIndex]
       }
-    }
-  }).catch(err => {
-    loading.close();
-    Message.error('获取在线主题失败，请检查网络！！！')
-  })
+
+      //设置颜色
+      settingTheme(curThemes.value, newThemes)
+      loading.close()
+      Message.success('设置成功！')
+
+      // 保存到store中
+      for (const key in newThemes) {
+        if (Object.hasOwnProperty.call(newThemes, key)) {
+          store.dispatch('settings/changeSetting', {
+            key: key,
+            value: newThemes[key]
+          })
+        }
+      }
+    })
+    .catch((err) => {
+      loading.close()
+      Message.error('获取在线主题失败，请检查网络！！！')
+    })
 }
 
 /**
@@ -249,21 +247,24 @@ const genColorOnline = (color) => {
  */
 const settingTheme = (curThemes, newThemes) => {
   // 需要生成的新的样式
-  let newSyles = originElement;
+  let newSyles = originElement
   // 把当前样式和需要替换的样式直接替换
   for (const key in curThemes) {
     if (Object.hasOwnProperty.call(curThemes, key)) {
       // 获取原样式的所有样式数组和最新的进行替换
-      const originColorArrs = getElColor(curThemes[key].split('#')[1]);
-      const newColorArrs = getElColor(newThemes[key].split('#')[1]);
+      const originColorArrs = getElColor(curThemes[key].split('#')[1])
+      const newColorArrs = getElColor(newThemes[key].split('#')[1])
       // 更新样式
       originColorArrs.forEach((color, index) => {
-        newSyles = newSyles.replace(new RegExp(color, 'ig'), newColorArrs[index])
+        newSyles = newSyles.replace(
+          new RegExp(color, 'ig'),
+          newColorArrs[index]
+        )
       })
     }
   }
   // 判断当前是否存在自定义的样式
-  let styleTag = document.getElementById(ELEMENT_SPECIAL_ID);
+  let styleTag = document.getElementById(ELEMENT_SPECIAL_ID)
   // 如果不存在直接创建一个style
   if (!styleTag) {
     styleTag = document.createElement('style')
@@ -271,22 +272,26 @@ const settingTheme = (curThemes, newThemes) => {
     document.head.appendChild(styleTag)
   }
   // 找出所有的颜色
-  styleTag.innerText = newSyles;
+  styleTag.innerText = newSyles
 }
 
 const openSetting = () => {
-  showSettings.value = true;
+  showSettings.value = true
 }
 /**对外暴露一个方法，来设置主题 */
 defineExpose({
   settingTheme,
-  openSetting,
+  openSetting
 })
-
 </script>
 <template>
   <div>
-    <el-drawer :visible.sync="showSettings" :withHeader="false" direction="rtl" size="300px">
+    <el-drawer
+      :visible.sync="showSettings"
+      :withHeader="false"
+      direction="rtl"
+      size="300px"
+    >
       <div class="setting-drawer--container">
         <div class="setting-drawer-title">
           <h3 class="drawer-title">经典主题风格设置</h3>
@@ -295,19 +300,20 @@ defineExpose({
           <!-- 暗色调 -->
           <div
             class="setting-drawer-block-checbox-item"
-            @click="handleTheme('theme-dark',
-            {
-              menuBgColor: variables.menuBackground,
-              menuTextColor: variables.menuColor,
-              headerTextColor: variables.logoTitleColor,
-            })"
+            @click="
+              handleTheme('theme-dark', {
+                menuBgColor: variables.menuBackground,
+                menuTextColor: variables.menuColor,
+                headerTextColor: variables.logoTitleColor
+              })
+            "
             title="经典1"
           >
             <img src="@/assets/images/dark.svg" alt="dark" />
             <div
               v-if="sideTheme === 'theme-dark'"
               class="setting-drawer-block-checbox-selectIcon"
-              style="display: block;"
+              style="display: block"
             >
               <i aria-label="图标: check" class="anticon anticon-check">
                 <svg
@@ -330,19 +336,20 @@ defineExpose({
           <!-- 亮色调 -->
           <div
             class="setting-drawer-block-checbox-item"
-            @click="handleTheme('theme-light',
-            {
-              menuBgColor: variables.menuLightBackground,
-              menuTextColor: variables.menuLightColor,
-              headerTextColor: variables.logoLightTitleColor,
-            })"
+            @click="
+              handleTheme('theme-light', {
+                menuBgColor: variables.menuLightBackground,
+                menuTextColor: variables.menuLightColor,
+                headerTextColor: variables.logoLightTitleColor
+              })
+            "
             title="经典2"
           >
             <img src="@/assets/images/light.svg" alt="light" />
             <div
               v-if="sideTheme === 'theme-light'"
               class="setting-drawer-block-checbox-selectIcon"
-              style="display: block;"
+              style="display: block"
             >
               <i aria-label="图标: check" class="anticon anticon-check">
                 <svg
@@ -363,12 +370,20 @@ defineExpose({
             </div>
           </div>
           <!-- 自定义色调 -->
-          <div class="setting-drawer-block-checbox-item" @click="openCustomDia" title="自定义">
-            <img class="custom-img" src="@/assets/images/customSlidePic.jpg" alt="light" />
+          <div
+            class="setting-drawer-block-checbox-item"
+            @click="openCustomDia"
+            title="自定义"
+          >
+            <img
+              class="custom-img"
+              src="@/assets/images/customSlidePic.jpg"
+              alt="light"
+            />
             <div
               v-if="sideTheme === 'theme-custom'"
               class="setting-drawer-block-checbox-selectIcon"
-              style="display: block;"
+              style="display: block"
             >
               <i aria-label="图标: check" class="anticon anticon-check">
                 <svg
@@ -434,12 +449,25 @@ defineExpose({
           </span>
         </div>
         <el-divider />
-        <el-button type="primary" plain icon="el-icon-document-add" @click="saveSettingToLocal">保存配置</el-button>
-        <el-button plain icon="el-icon-refresh" @click="resetSetting">重置配置</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-document-add"
+          @click="saveSettingToLocal"
+          >保存配置</el-button
+        >
+        <el-button plain icon="el-icon-refresh" @click="resetSetting"
+          >重置配置</el-button
+        >
       </div>
     </el-drawer>
 
-    <el-dialog :title="'自定义颜色'" width="400px" append-to-body v-model="showCustomDia">
+    <el-dialog
+      :title="'自定义颜色'"
+      width="400px"
+      append-to-body
+      v-model="showCustomDia"
+    >
       <!-- 选择自定义颜色 -->
       <el-form :model="customForm" ref="customFormRef" label-width="120px">
         <el-form-item label="左侧菜单背景" prop="menuBgColor">
@@ -462,7 +490,7 @@ defineExpose({
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .setting-drawer--container {
   padding: 10px 20px 20px 20px;
 }

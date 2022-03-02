@@ -1,6 +1,7 @@
 import defaultSettings from '../../config/settings.js'
 
-const { warningColor,
+const {
+  warningColor,
   infoColor,
   dangerColor,
   successColor,
@@ -14,11 +15,12 @@ const { warningColor,
   tagsView,
   fixedHeader,
   sidebarLogo,
-  dynamicTitle } = defaultSettings
+  dynamicTitle
+} = defaultSettings
 /**
  * 布局设置
  */
-const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || '';
+const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''
 
 const state = {
   /**
@@ -72,25 +74,35 @@ const state = {
   /**
    * 是否显示 tagsView 头下面的tab
    */
-  tagsView: storageSetting.tagsView === undefined ? tagsView : storageSetting.tagsView,
+  tagsView:
+    storageSetting.tagsView === undefined ? tagsView : storageSetting.tagsView,
   /**
    * 固定头部
    */
-  fixedHeader: storageSetting.fixedHeader === undefined ? fixedHeader : storageSetting.fixedHeader,
+  fixedHeader:
+    storageSetting.fixedHeader === undefined
+      ? fixedHeader
+      : storageSetting.fixedHeader,
   /**
    * 侧边logo
    */
-  sidebarLogo: storageSetting.sidebarLogo === undefined ? sidebarLogo : storageSetting.sidebarLogo,
+  sidebarLogo:
+    storageSetting.sidebarLogo === undefined
+      ? sidebarLogo
+      : storageSetting.sidebarLogo,
   /**
    * 动态标题
    */
-  dynamicTitle: storageSetting.dynamicTitle === undefined ? dynamicTitle : storageSetting.dynamicTitle
+  dynamicTitle:
+    storageSetting.dynamicTitle === undefined
+      ? dynamicTitle
+      : storageSetting.dynamicTitle
 }
 const mutations = {
   /**
    * 修改系统设置
-   * @param {*} state 
-   * @param {*} param1 
+   * @param {*} state
+   * @param {*} param1
    */
   CHANGE_SETTING: (state, { key, value }) => {
     if (state.hasOwnProperty(key)) {
@@ -102,16 +114,16 @@ const mutations = {
 const actions = {
   /**
    * 修改布局设置
-   * @param {*} param0 
-   * @param {*} data 
+   * @param {*} param0
+   * @param {*} data
    */
   changeSetting({ commit }, data) {
     commit('CHANGE_SETTING', data)
   },
   /**
    * 设置网页标题
-   * @param {*} param0 
-   * @param {*} title 
+   * @param {*} param0
+   * @param {*} title
    */
   setTitle({ commit }, title) {
     state.title = title
@@ -124,4 +136,3 @@ export default {
   mutations,
   actions
 }
-

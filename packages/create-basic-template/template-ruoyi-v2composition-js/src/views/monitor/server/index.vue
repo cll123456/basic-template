@@ -1,30 +1,29 @@
 <script>
-export default{
-   name: 'Server'
+export default {
+  name: 'Server'
 }
 </script>
 <script setup>
 import { ref } from '@vue/composition-api'
-import { getServer } from '../../../api/monitor/server';
+import { getServer } from '../../../api/monitor/server'
 import { Loading } from 'element-ui'
 
-const server = ref([]);
+const server = ref([])
 
 const getList = () => {
   const loading = Loading.service({
     lock: true,
     text: '玩命加载中……',
     spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.7)',
+    background: 'rgba(0, 0, 0, 0.7)'
   })
-  getServer().then(response => {
-    server.value = response.data;
-    loading.close();
-  });
+  getServer().then((response) => {
+    server.value = response.data
+    loading.close()
+  })
 }
 
-getList();
-
+getList()
 </script>
 <template>
   <div class="app-container">
@@ -35,7 +34,7 @@ getList();
             <span>CPU</span>
           </div>
           <div class="el-table el-table--enable-row-hover el-table--medium">
-            <table cellspacing="0" style="width: 100%;">
+            <table cellspacing="0" style="width: 100%">
               <thead>
                 <tr>
                   <th class="el-table__cell is-leaf">
@@ -52,7 +51,9 @@ getList();
                     <div class="cell">核心数</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.cpu">{{ server.cpu.cpuNum }}</div>
+                    <div class="cell" v-if="server.cpu">
+                      {{ server.cpu.cpuNum }}
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -60,7 +61,9 @@ getList();
                     <div class="cell">用户使用率</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.cpu">{{ server.cpu.used }}%</div>
+                    <div class="cell" v-if="server.cpu">
+                      {{ server.cpu.used }}%
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -68,7 +71,9 @@ getList();
                     <div class="cell">系统使用率</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.cpu">{{ server.cpu.sys }}%</div>
+                    <div class="cell" v-if="server.cpu">
+                      {{ server.cpu.sys }}%
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -76,7 +81,9 @@ getList();
                     <div class="cell">当前空闲率</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.cpu">{{ server.cpu.free }}%</div>
+                    <div class="cell" v-if="server.cpu">
+                      {{ server.cpu.free }}%
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -91,7 +98,7 @@ getList();
             <span>内存</span>
           </div>
           <div class="el-table el-table--enable-row-hover el-table--medium">
-            <table cellspacing="0" style="width: 100%;">
+            <table cellspacing="0" style="width: 100%">
               <thead>
                 <tr>
                   <th class="el-table__cell is-leaf">
@@ -111,10 +118,14 @@ getList();
                     <div class="cell">总内存</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.mem">{{ server.mem.total }}G</div>
+                    <div class="cell" v-if="server.mem">
+                      {{ server.mem.total }}G
+                    </div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.jvm">{{ server.jvm.total }}M</div>
+                    <div class="cell" v-if="server.jvm">
+                      {{ server.jvm.total }}M
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -122,10 +133,14 @@ getList();
                     <div class="cell">已用内存</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.mem">{{ server.mem.used }}G</div>
+                    <div class="cell" v-if="server.mem">
+                      {{ server.mem.used }}G
+                    </div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.jvm">{{ server.jvm.used }}M</div>
+                    <div class="cell" v-if="server.jvm">
+                      {{ server.jvm.used }}M
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -133,10 +148,14 @@ getList();
                     <div class="cell">剩余内存</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.mem">{{ server.mem.free }}G</div>
+                    <div class="cell" v-if="server.mem">
+                      {{ server.mem.free }}G
+                    </div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.jvm">{{ server.jvm.free }}M</div>
+                    <div class="cell" v-if="server.jvm">
+                      {{ server.jvm.free }}M
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -148,14 +167,18 @@ getList();
                       class="cell"
                       v-if="server.mem"
                       :class="{ 'text-danger': server.mem.usage > 80 }"
-                    >{{ server.mem.usage }}%</div>
+                    >
+                      {{ server.mem.usage }}%
+                    </div>
                   </td>
                   <td class="el-table__cell is-leaf">
                     <div
                       class="cell"
                       v-if="server.jvm"
                       :class="{ 'text-danger': server.jvm.usage > 80 }"
-                    >{{ server.jvm.usage }}%</div>
+                    >
+                      {{ server.jvm.usage }}%
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -170,20 +193,24 @@ getList();
             <span>服务器信息</span>
           </div>
           <div class="el-table el-table--enable-row-hover el-table--medium">
-            <table cellspacing="0" style="width: 100%;">
+            <table cellspacing="0" style="width: 100%">
               <tbody>
                 <tr>
                   <td class="el-table__cell is-leaf">
                     <div class="cell">服务器名称</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.sys">{{ server.sys.computerName }}</div>
+                    <div class="cell" v-if="server.sys">
+                      {{ server.sys.computerName }}
+                    </div>
                   </td>
                   <td class="el-table__cell is-leaf">
                     <div class="cell">操作系统</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.sys">{{ server.sys.osName }}</div>
+                    <div class="cell" v-if="server.sys">
+                      {{ server.sys.osName }}
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -191,13 +218,17 @@ getList();
                     <div class="cell">服务器IP</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.sys">{{ server.sys.computerIp }}</div>
+                    <div class="cell" v-if="server.sys">
+                      {{ server.sys.computerIp }}
+                    </div>
                   </td>
                   <td class="el-table__cell is-leaf">
                     <div class="cell">系统架构</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.sys">{{ server.sys.osArch }}</div>
+                    <div class="cell" v-if="server.sys">
+                      {{ server.sys.osArch }}
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -212,20 +243,24 @@ getList();
             <span>Java虚拟机信息</span>
           </div>
           <div class="el-table el-table--enable-row-hover el-table--medium">
-            <table cellspacing="0" style="width: 100%;">
+            <table cellspacing="0" style="width: 100%">
               <tbody>
                 <tr>
                   <td class="el-table__cell is-leaf">
                     <div class="cell">Java名称</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.jvm">{{ server.jvm.name }}</div>
+                    <div class="cell" v-if="server.jvm">
+                      {{ server.jvm.name }}
+                    </div>
                   </td>
                   <td class="el-table__cell is-leaf">
                     <div class="cell">Java版本</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.jvm">{{ server.jvm.version }}</div>
+                    <div class="cell" v-if="server.jvm">
+                      {{ server.jvm.version }}
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -233,13 +268,17 @@ getList();
                     <div class="cell">启动时间</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.jvm">{{ server.jvm.startTime }}</div>
+                    <div class="cell" v-if="server.jvm">
+                      {{ server.jvm.startTime }}
+                    </div>
                   </td>
                   <td class="el-table__cell is-leaf">
                     <div class="cell">运行时长</div>
                   </td>
                   <td class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.jvm">{{ server.jvm.runTime }}</div>
+                    <div class="cell" v-if="server.jvm">
+                      {{ server.jvm.runTime }}
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -247,7 +286,9 @@ getList();
                     <div class="cell">安装路径</div>
                   </td>
                   <td colspan="3" class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.jvm">{{ server.jvm.home }}</div>
+                    <div class="cell" v-if="server.jvm">
+                      {{ server.jvm.home }}
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -255,7 +296,9 @@ getList();
                     <div class="cell">项目路径</div>
                   </td>
                   <td colspan="3" class="el-table__cell is-leaf">
-                    <div class="cell" v-if="server.sys">{{ server.sys.userDir }}</div>
+                    <div class="cell" v-if="server.sys">
+                      {{ server.sys.userDir }}
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -270,7 +313,7 @@ getList();
             <span>磁盘状态</span>
           </div>
           <div class="el-table el-table--enable-row-hover el-table--medium">
-            <table cellspacing="0" style="width: 100%;">
+            <table cellspacing="0" style="width: 100%">
               <thead>
                 <tr>
                   <th class="el-table__cell el-table__cell is-leaf">
@@ -320,7 +363,9 @@ getList();
                     <div
                       class="cell"
                       :class="{ 'text-danger': sysFile.usage > 80 }"
-                    >{{ sysFile.usage }}%</div>
+                    >
+                      {{ sysFile.usage }}%
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -332,5 +377,4 @@ getList();
   </div>
 </template>
 
-<style lang='scss' scoped>
-</style>
+<style lang="scss" scoped></style>

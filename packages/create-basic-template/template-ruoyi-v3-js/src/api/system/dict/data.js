@@ -51,7 +51,6 @@ export function delData(dictCode) {
   })
 }
 
-
 // 导出字典数据
 export function exportData(query) {
   return request({

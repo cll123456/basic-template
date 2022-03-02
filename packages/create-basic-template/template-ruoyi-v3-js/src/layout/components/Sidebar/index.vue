@@ -1,54 +1,51 @@
 <script setup>
-import Logo from "./Logo.vue";
-import { computed, ref } from 'vue';
-import variable from './../../../assets/styles/variables.module.scss';
-import { useStore } from 'vuex';
-import SidebarItem from "./SidebarItem.vue";
-import { useRoute } from "vue-router";
+import Logo from './Logo.vue'
+import { computed, ref } from 'vue'
+import variable from './../../../assets/styles/variables.module.scss'
+import { useStore } from 'vuex'
+import SidebarItem from './SidebarItem.vue'
+import { useRoute } from 'vue-router'
 
 /**
  * 颜色变量
  */
-const variables = computed(() => variable);
+const variables = computed(() => variable)
 
-const route = useRoute();
+const route = useRoute()
 
-const store = useStore();
+const store = useStore()
 
 /**
  * 系统设置
  */
-const settings = computed(() => store.state.settings);
+const settings = computed(() => store.state.settings)
 /**
  * 是否折叠
  */
-const isCollapse = computed(() => store.state.app.sidebar.opened);
-
+const isCollapse = computed(() => store.state.app.sidebar.opened)
 
 /**
  * 当前选中的菜单
  */
 const activeMenu = computed(() => {
-  const { meta, path } = route;
+  const { meta, path } = route
   // if set path, the sidebar will highlight the path you set
   if (meta.activeMenu) {
-    return meta.activeMenu;
+    return meta.activeMenu
   }
-  return path;
+  return path
 })
 
 /**
  * 获取左侧菜单的路由
  */
-const sidebarRouters = store.getters.sidebarRouters;
-
-
+const sidebarRouters = store.getters.sidebarRouters
 </script>
 
 <template>
   <div
     :class="{ 'has-logo': settings.sidebarLogo }"
-    :style="{ backgroundColor: settings.menuBgColor}"
+    :style="{ backgroundColor: settings.menuBgColor }"
   >
     <logo v-if="settings.sidebarLogo" :collapse="!isCollapse" />
     <el-scrollbar :class="settings.sideTheme" wrap-class="scrollbar-wrapper">
@@ -73,5 +70,4 @@ const sidebarRouters = store.getters.sidebarRouters;
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

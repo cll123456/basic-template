@@ -1,8 +1,8 @@
 <script setup>
-import AppLink from './Link.vue';
-import { ref } from 'vue';
-import { isExternal } from '../../../utils/validate';
-import { getNormalPath } from '../../../utils/ruoyi';
+import AppLink from './Link.vue'
+import { ref } from 'vue'
+import { isExternal } from '../../../utils/validate'
+import { getNormalPath } from '../../../utils/ruoyi'
 const props = defineProps({
   /**
    * 路由对象
@@ -30,16 +30,16 @@ const props = defineProps({
 /**
  * 只有一个子节点
  */
-const onlyOneChild = ref({});
+const onlyOneChild = ref({})
 
 /**
  * 是否需要展示chilren
  */
 const hasOneShowingChild = (children = [], parent) => {
   if (!children) {
-    children = [];
+    children = []
   }
-  const showingChildren = children.filter(item => {
+  const showingChildren = children.filter((item) => {
     if (item.hidden) {
       return false
     } else {
@@ -61,7 +61,7 @@ const hasOneShowingChild = (children = [], parent) => {
   }
 
   return false
-};
+}
 
 /**
  * 返回路径
@@ -74,33 +74,50 @@ const resolvePath = (routePath, routeQuery) => {
     return props.basePath
   }
   if (routeQuery) {
-    let query = JSON.parse(routeQuery);
-    return { path: getNormalPath(props.basePath + '/' + routePath), query: query }
+    let query = JSON.parse(routeQuery)
+    return {
+      path: getNormalPath(props.basePath + '/' + routePath),
+      query: query
+    }
   }
   return getNormalPath(props.basePath + '/' + routePath)
 }
-
 </script>
 
 <template>
   <div v-if="!props.item.hidden">
     <template
-      v-if="hasOneShowingChild(props.item.children, props.item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !props.item.alwaysShow"
+      v-if="
+        hasOneShowingChild(props.item.children, props.item) &&
+        (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+        !props.item.alwaysShow
+      "
     >
-      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path, onlyOneChild.query)">
+      <app-link
+        v-if="onlyOneChild.meta"
+        :to="resolvePath(onlyOneChild.path, onlyOneChild.query)"
+      >
         <el-menu-item
           :index="resolvePath(onlyOneChild.path)"
           :class="{ 'submenu-title-noDropdown': !props.isNest }"
         >
           <svg-icon
-            :icon-class="onlyOneChild.meta.icon || (props.item.meta && props.item.meta.icon)"
+            :icon-class="
+              onlyOneChild.meta.icon ||
+              (props.item.meta && props.item.meta.icon)
+            "
           />
           <template #title>{{ onlyOneChild.meta.title }}</template>
         </el-menu-item>
       </app-link>
     </template>
 
-    <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
+    <el-sub-menu
+      v-else
+      ref="subMenu"
+      :index="resolvePath(item.path)"
+      popper-append-to-body
+    >
       <template v-if="props.item.meta" #title>
         <svg-icon :icon-class="props.item.meta && props.item.meta.icon" />
         <span>{{ props.item.meta.title }}</span>
@@ -118,5 +135,4 @@ const resolvePath = (routePath, routeQuery) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

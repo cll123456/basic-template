@@ -2,13 +2,12 @@
 // #!就是代表此文件可以当做脚本运行，那么怎么运行呢，运行什么呢
 // /usr/bin/env node这行的意思就是用node来执行此文件，node怎么来呢，就去用户(usr)的安装根目录(bin)下的env环境变量中去找，简单的说就是如果在windows上面，就去安装node的bin目录去找node执行器，一般我们都放在环境变量中，所以就能正确找到node来执行
 
-
 const fs = require('fs')
 const path = require('path')
 // 读取指令， 如： pnpm create basic-template my-project-name -- --template template-ruoyi-v3-js
-const argv = require('minimist')(process.argv.slice(2), { string: ['_'] });
+const argv = require('minimist')(process.argv.slice(2), { string: ['_'] })
 console.log(argv) // { _: [ 'my-project-name', '--template', 'template-ruoyi-v3-js' ] }
-const prompts = require('prompts');
+const prompts = require('prompts')
 // 获取输出的演示
 const {
   yellow,
@@ -19,9 +18,9 @@ const {
   lightRed,
   red,
   reset
-} = require('kolorist');
+} = require('kolorist')
 
-const cwd = process.cwd();
+const cwd = process.cwd()
 
 const FRAMEWORKS = [
   {
@@ -60,18 +59,17 @@ const renameFiles = {
 
 /**
  * 初始化
- * @returns 
+ * @returns
  */
 async function init() {
-  let targetDir = argv._[0];
+  let targetDir = argv._[0]
   // 拿到新建项目的名称 my-project-name
- 
-  
+
   // let template = argv.template || argv.t;
-  let template = argv._[2];
-  
+  let template = argv._[2]
+
   const defaultProjectName = !targetDir ? 'vite-project' : targetDir
-  
+
   let result = {}
 
   try {

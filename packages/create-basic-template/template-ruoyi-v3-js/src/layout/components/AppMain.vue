@@ -1,14 +1,13 @@
 <script setup>
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { useStore } from "vuex";
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 
-const store = useStore();
-const cachedViews = computed(() => store.getters.cachedViews);
+const store = useStore()
+const cachedViews = computed(() => store.getters.cachedViews)
 
-const router = useRoute();
-const key = router.path;
-
+const router = useRoute()
+const key = router.path
 </script>
 
 <template>

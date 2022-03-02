@@ -1,5 +1,5 @@
-import { createWebHistory, createRouter } from "vue-router";
-import Layout from './../layout/index.vue';
+import { createWebHistory, createRouter } from 'vue-router'
+import Layout from './../layout/index.vue'
 /**
  * Note: 路由配置项
  *
@@ -19,7 +19,6 @@ import Layout from './../layout/index.vue';
     activeMenu: '/system/user'      // 当路由设置了该属性，则会高亮相对应的侧边栏。
   }
  */
-
 
 /**
  * 公共路由
@@ -131,8 +130,8 @@ export const constantRoutes = [
         meta: { title: '调度日志', activeMenu: '/monitor/job' }
       }
     ]
-  },
-];
+  }
+]
 
 const router = createRouter({
   history: createWebHistory(),
@@ -143,7 +142,7 @@ const router = createRouter({
     } else {
       return { top: 0 }
     }
-  },
-});
+  }
+})
 
-export default router;
+export default router

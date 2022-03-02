@@ -1,5 +1,5 @@
 <script setup>
-import { ref, nextTick, onMounted, watch, computed } from 'vue';
+import { ref, nextTick, onMounted, watch, computed } from 'vue'
 
 const props = defineProps({
   /* 配置项 */
@@ -35,16 +35,14 @@ const props = defineProps({
     type: String,
     default: ''
   }
-
 })
 /** select ref */
-const selectRef = ref(null);
-
+const selectRef = ref(null)
 
 /**tree ref */
-const treeRef = ref(null);
+const treeRef = ref(null)
 /**向上分发 */
-const emit = defineEmits(['update:value']);
+const emit = defineEmits(['update:value'])
 
 // 初始值
 const valueId = computed({
@@ -52,10 +50,9 @@ const valueId = computed({
   set: (val) => {
     emit('update:value', val)
   }
-});
-const valueTitle = ref('');
-const defaultExpandedKey = ref([]);
-
+})
+const valueTitle = ref('')
+const defaultExpandedKey = ref([])
 
 const initHandle = () => {
   nextTick(() => {
@@ -70,8 +67,8 @@ const initHandle = () => {
 // 切换选项
 const handleNodeClick = (node) => {
   valueTitle.value = node[props.objMap.label]
-  valueId.value = node[props.objMap.value];
-  defaultExpandedKey.value = [];
+  valueId.value = node[props.objMap.value]
+  defaultExpandedKey.value = []
   // 赋值选中的值
   // emit('update:value', valueId.value)
   // 选中后失去焦点，隐藏下拉框
@@ -96,7 +93,7 @@ const filterNode = (value, data) => {
 const clearHandle = () => {
   valueTitle.value = ''
   valueId.value = ''
-  defaultExpandedKey.value = [];
+  defaultExpandedKey.value = []
   // 赋值选中的值
   // emit('update:value', valueId.value)
   clearSelected()
@@ -114,13 +111,9 @@ onMounted(() => {
   initHandle()
 })
 
-
 watch(valueId, () => {
-  initHandle();
+  initHandle()
 })
-
-
-
 </script>
 <template>
   <div class="el-tree-select">
@@ -152,8 +145,8 @@ watch(valueId, () => {
   </div>
 </template>
 
-<style lang='scss' scoped>
-@import "./../../assets/styles/variables.module.scss";
+<style lang="scss" scoped>
+@import './../../assets/styles/variables.module.scss';
 .el-scrollbar .el-scrollbar__view .el-select-dropdown__item {
   padding: 0;
   background-color: #fff;
@@ -164,7 +157,7 @@ watch(valueId, () => {
   font-weight: normal;
 }
 
-ul li  .el-tree .el-tree-node__content {
+ul li .el-tree .el-tree-node__content {
   height: auto;
   padding: 0 20px;
   box-sizing: border-box;

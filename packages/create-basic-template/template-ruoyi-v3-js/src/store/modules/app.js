@@ -8,7 +8,9 @@ const state = {
     /**
      * 是否打开
      */
-    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
+    opened: Cookies.get('sidebarStatus')
+      ? !!+Cookies.get('sidebarStatus')
+      : true,
     /**
      * 是否需要动画
      */
@@ -30,9 +32,9 @@ const state = {
 const mutations = {
   /**
    * 切换侧边栏
-   * @param {*} state 
+   * @param {*} state
    */
-  TOGGLE_SIDEBAR: state => {
+  TOGGLE_SIDEBAR: (state) => {
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
     if (state.sidebar.opened) {
@@ -43,8 +45,8 @@ const mutations = {
   },
   /**
    * 带有动画关闭
-   * @param {*} state 
-   * @param {*} withoutAnimation 
+   * @param {*} state
+   * @param {*} withoutAnimation
    */
   CLOSE_SIDEBAR: (state, withoutAnimation) => {
     Cookies.set('sidebarStatus', 0)
@@ -53,16 +55,16 @@ const mutations = {
   },
   /**
    * 切换设备
-   * @param {*} state 
-   * @param {*} device 
+   * @param {*} state
+   * @param {*} device
    */
   TOGGLE_DEVICE: (state, device) => {
     state.device = device
   },
   /**
    * 设置全局的字体大小
-   * @param {*} state 
-   * @param {*} size 
+   * @param {*} state
+   * @param {*} size
    */
   SET_SIZE: (state, size) => {
     state.size = size

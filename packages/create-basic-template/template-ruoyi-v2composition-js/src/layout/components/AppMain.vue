@@ -1,12 +1,11 @@
 <script setup>
-import { computed, getCurrentInstance } from '@vue/composition-api';
-import store from '@/store';
+import { computed, getCurrentInstance } from '@vue/composition-api'
+import store from '@/store'
 
-const { proxy } = getCurrentInstance();
-const key = computed(() => proxy.$route.path);
+const { proxy } = getCurrentInstance()
+const key = computed(() => proxy.$route.path)
 
-const cachedViews = computed(() => store.state.tagsView.cachedViews);
-
+const cachedViews = computed(() => store.state.tagsView.cachedViews)
 </script>
 
 <template>

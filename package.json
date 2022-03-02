@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node index.js",
+    "format": "prettier --write .",
+    "lint": "eslint packages/*/{src,types}/**"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
   }
 }

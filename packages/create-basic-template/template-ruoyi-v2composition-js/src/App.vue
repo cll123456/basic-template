@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted } from '@vue/composition-api';
+import { onMounted } from '@vue/composition-api'
 
-onMounted(() => { 
+onMounted(() => {
   // document.getElementById('loading-wrapper').remove();
 })
 </script>
@@ -12,5 +12,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style>
-</style>
+<style></style>

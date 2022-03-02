@@ -1,15 +1,15 @@
 <script setup>
-import { ref, watchEffect } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { ref, watchEffect } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 /**
  * 路由对象
  */
-const route = useRoute();
+const route = useRoute()
 
 /**
  * 路由实例
  */
-const router = useRouter();
+const router = useRouter()
 
 /**
  * 面包屑数组
@@ -25,22 +25,23 @@ const isDashboard = (route) => {
     return false
   }
   return name.trim() === 'Index'
-};
+}
 /**
  * 初始化面包屑
  */
 const getBreadcrumb = () => {
   // only show routes with meta.title
-  let matched = route.matched.filter(item => item.meta && item.meta.title);
+  let matched = route.matched.filter((item) => item.meta && item.meta.title)
   const first = matched[0]
   // 判断是否为首页
   if (!isDashboard(first)) {
     matched = [{ path: '/index', meta: { title: '首页' } }].concat(matched)
   }
 
-  levelList.value = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
+  levelList.value = matched.filter(
+    (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
+  )
 }
-
 
 /**
  * 跳转
@@ -64,25 +65,24 @@ watchEffect(() => {
   getBreadcrumb()
 })
 
-
-getBreadcrumb();
-
+getBreadcrumb()
 </script>
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
-      <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
+      <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
         <span
           v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
           class="no-redirect"
-        >{{ item.meta.title }}</span>
+          >{{ item.meta.title }}</span
+        >
         <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .app-breadcrumb.el-breadcrumb {
   display: inline-block;
   font-size: 14px;

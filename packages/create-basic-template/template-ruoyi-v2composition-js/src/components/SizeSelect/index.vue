@@ -1,11 +1,16 @@
 <script setup>
 import { Message } from 'element-ui'
-import { ref, computed, nextTick,getCurrentInstance  } from '@vue/composition-api';
-import SvgIcon from './../SvgIcon';
+import {
+  ref,
+  computed,
+  nextTick,
+  getCurrentInstance
+} from '@vue/composition-api'
+import SvgIcon from './../SvgIcon'
 /**
  * 当前路由实例
  */
-import router from '@/router';
+import router from '@/router'
 
 /**
  * store
@@ -14,12 +19,11 @@ import store from '@/store'
 /**
  * 获取当前实例
  */
-const {proxy} = getCurrentInstance();
+const { proxy } = getCurrentInstance()
 /**
  * 当前的大小
  */
-const size = computed(() => store.getters.size);
-
+const size = computed(() => store.getters.size)
 
 /**
  * size options
@@ -52,15 +56,14 @@ const refreshView = async () => {
  * 处理当前元素的大小
  */
 const handleSetSize = (size) => {
-  proxy.$ELEMENT.size = size;
+  proxy.$ELEMENT.size = size
   store.dispatch('app/setSize', size)
   refreshView()
   Message({
     message: 'Switch Size Success',
     type: 'success'
   })
-};
-
+}
 </script>
 <template>
   <div>
@@ -76,9 +79,7 @@ const handleSetSize = (size) => {
             :disabled="size === item.value"
             :command="item.value"
           >
-            {{
-              item.label
-            }}
+            {{ item.label }}
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -86,7 +87,7 @@ const handleSetSize = (size) => {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .size-icon--style {
   font-size: 18px;
   line-height: 50px;

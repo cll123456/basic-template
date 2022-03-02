@@ -1,10 +1,6 @@
-<script setup>
-
-</script>
+<script setup></script>
 <template>
-   <div>401</div>
+  <div>401</div>
 </template>
 
-<style lang='scss' scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -59,7 +59,6 @@ export function optionselect() {
   })
 }
 
-
 // 导出字典类型
 export function exportType(query) {
   return request({

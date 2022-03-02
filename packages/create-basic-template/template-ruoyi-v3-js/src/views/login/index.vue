@@ -1,36 +1,32 @@
 <script setup>
-import { ref } from 'vue';
-import { getCodeImg } from "@/api/login";
-import Cookies from "js-cookie";
+import { ref } from 'vue'
+import { getCodeImg } from '@/api/login'
+import Cookies from 'js-cookie'
 import { encrypt, decrypt } from '@/utils/jsencrypt'
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 /**
  * 验证码地址
  */
-const codeUrl = ref("")
+const codeUrl = ref('')
 /**
  * 登录表单
  */
 const loginForm = ref({
-  username: "admin",
-  password: "admin123",
+  username: 'admin',
+  password: 'admin123',
   rememberMe: false,
-  code: "",
-  uuid: ""
+  code: '',
+  uuid: ''
 })
 /**
  * 表单规则验证
  */
 const loginRules = ref({
-  username: [
-    { required: true, trigger: "blur", message: "请输入您的账号" }
-  ],
-  password: [
-    { required: true, trigger: "blur", message: "请输入您的密码" }
-  ],
-  code: [{ required: true, trigger: "change", message: "请输入验证码" }]
+  username: [{ required: true, trigger: 'blur', message: '请输入您的账号' }],
+  password: [{ required: true, trigger: 'blur', message: '请输入您的密码' }],
+  code: [{ required: true, trigger: 'change', message: '请输入验证码' }]
 })
 /**
  * 按钮中的加载状态
@@ -45,85 +41,93 @@ const register = ref(false)
  */
 const redirect = ref(undefined)
 
-
 /**
  * 获取store
  */
-const store = useStore();
+const store = useStore()
 /**
  * 当前路由实例
  */
-const router = useRouter();
+const router = useRouter()
 
 /**
  * 获取验证码
  */
 const getCode = () => {
-  getCodeImg().then(res => {
-    captchaOnOff.value = res.captchaOnOff === undefined ? true : res.captchaOnOff;
+  getCodeImg().then((res) => {
+    captchaOnOff.value =
+      res.captchaOnOff === undefined ? true : res.captchaOnOff
     if (captchaOnOff.value) {
-      codeUrl.value = "data:image/gif;base64," + res.img;
-      loginForm.value.uuid = res.uuid;
+      codeUrl.value = 'data:image/gif;base64,' + res.img
+      loginForm.value.uuid = res.uuid
     }
-  });
+  })
 }
 /**
  * 重cookie中获取账号和密码来进行登录
  */
 const getCookie = () => {
-  const username = Cookies.get("username");
-  const password = Cookies.get("password");
+  const username = Cookies.get('username')
+  const password = Cookies.get('password')
   const rememberMe = Cookies.get('rememberMe')
   loginForm.value = {
     username: username === undefined ? loginForm.value.username : username,
-    password: password === undefined ? loginForm.value.password : decrypt(password),
+    password:
+      password === undefined ? loginForm.value.password : decrypt(password),
     rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
-  };
+  }
 }
-const loginFormRef = ref(null);
+const loginFormRef = ref(null)
 
 /**
  * 登录按钮
  */
 const handleLogin = () => {
-  loginFormRef.value.validate(valid => {
+  loginFormRef.value.validate((valid) => {
     if (valid) {
-      loading.value = true;
+      loading.value = true
       // 勾选了需要记住密码设置在cookie中设置记住用户明和名命
       if (loginForm.value.rememberMe) {
-        Cookies.set("username", loginForm.value.username, { expires: 30 });
-        Cookies.set("password", encrypt(loginForm.value.password), { expires: 30 });
-        Cookies.set('rememberMe', loginForm.value.rememberMe, { expires: 30 });
+        Cookies.set('username', loginForm.value.username, { expires: 30 })
+        Cookies.set('password', encrypt(loginForm.value.password), {
+          expires: 30
+        })
+        Cookies.set('rememberMe', loginForm.value.rememberMe, { expires: 30 })
       } else {
-        // 否则移除 
-        Cookies.remove("username");
-        Cookies.remove("password");
-        Cookies.remove('rememberMe');
+        // 否则移除
+        Cookies.remove('username')
+        Cookies.remove('password')
+        Cookies.remove('rememberMe')
       }
       // 调用action的登录方法
-      store.dispatch("Login", loginForm.value).then(() => {
-        router.push({ path: redirect.value || "/" });
-      }).catch(() => {
-        loading.value = false;
-        // 重新获取验证码
-        if (captchaOnOff.value) {
-          getCode();
-        }
-      });
+      store
+        .dispatch('Login', loginForm.value)
+        .then(() => {
+          router.push({ path: redirect.value || '/' })
+        })
+        .catch(() => {
+          loading.value = false
+          // 重新获取验证码
+          if (captchaOnOff.value) {
+            getCode()
+          }
+        })
     }
-  });
+  })
 }
 
-
-
 // 初始化获取cookie中的账号和密码，获取验证码
-getCode();
-getCookie();
-
+getCode()
+getCookie()
 </script>
 <template>
   <div class="login">
-    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
+    <el-form
+      ref="loginFormRef"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+    >
       <h3 class="title">若依后台管理系统——VUE3JS</h3>
       <el-form-item prop="username">
         <el-input
@@ -133,7 +137,11 @@ getCookie();
           auto-complete="off"
           placeholder="账号"
         >
-          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
+          <svg-icon
+            slot="prefix"
+            icon-class="user"
+            class="el-input__icon input-icon"
+          />
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
@@ -146,7 +154,11 @@ getCookie();
           show-password
           @keyup.enter.native="handleLogin"
         >
-          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
+          <svg-icon
+            slot="prefix"
+            icon-class="password"
+            class="el-input__icon input-icon"
+          />
         </el-input>
       </el-form-item>
       <el-form-item prop="code" v-if="captchaOnOff">
@@ -158,25 +170,35 @@ getCookie();
           style="width: 63%"
           @keyup.enter.native="handleLogin"
         >
-          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
+          <svg-icon
+            slot="prefix"
+            icon-class="validCode"
+            class="el-input__icon input-icon"
+          />
         </el-input>
         <div class="login-code">
           <img :src="codeUrl" @click="getCode" class="login-code-img" />
         </div>
       </el-form-item>
-      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
-      <el-form-item style="width:100%;">
+      <el-checkbox
+        v-model="loginForm.rememberMe"
+        style="margin: 0px 0px 25px 0px"
+        >记住密码</el-checkbox
+      >
+      <el-form-item style="width: 100%">
         <el-button
           :loading="loading"
           type="primary"
-          style="width:100%;"
+          style="width: 100%"
           @click.native.prevent="handleLogin"
         >
           <span v-if="!loading">登 录</span>
           <span v-else>登 录 中...</span>
         </el-button>
-        <div style="float: right;" v-if="register">
-          <router-link class="link-type" :to="'/register'">立即注册</router-link>
+        <div style="float: right" v-if="register">
+          <router-link class="link-type" :to="'/register'"
+            >立即注册</router-link
+          >
         </div>
       </el-form-item>
     </el-form>
@@ -187,20 +209,24 @@ getCookie();
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .login {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("./../../assets/images/login-background.jpg");
+  background-image: url('./../../assets/images/login-background.jpg');
   background-size: cover;
 }
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
   // color: #707070;
-  background: linear-gradient(to right, var(--el-color-danger), var(--el-color-primary));
+  background: linear-gradient(
+    to right,
+    var(--el-color-danger),
+    var(--el-color-primary)
+  );
   -webkit-background-clip: text;
   color: transparent;
   font-weight: bold;

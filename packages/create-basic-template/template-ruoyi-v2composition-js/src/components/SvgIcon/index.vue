@@ -1,7 +1,6 @@
 <script setup>
-import { computed, ref } from "@vue/composition-api";
-import { isExternal } from "../../utils/validate";
-
+import { computed, ref } from '@vue/composition-api'
+import { isExternal } from '../../utils/validate'
 
 const props = defineProps({
   /**
@@ -32,12 +31,12 @@ const isExternalIcon = computed(() => isExternal(props.iconClass))
 const styleExternalIcon = computed(() => ({
   mask: `url(${props.iconClass}) no-repeat 50% 50%`,
   '-webkit-mask': `url(${props.iconClass}) no-repeat 50% 50%`
-}));
+}))
 
 /**
  * svg图标名称
  */
-const iconName = computed(() => `#icon-${props.iconClass}`);
+const iconName = computed(() => `#icon-${props.iconClass}`)
 
 /**
  * svg类名
@@ -49,16 +48,20 @@ const svgClass = computed(() => {
     return 'svg-icon'
   }
 })
-
 </script>
 <template>
-  <div v-if="isExternalIcon"  v-on="$listeners" :style="styleExternalIcon" class="svg-external-icon svg-icon"  />
-  <svg v-else :class="svgClass" v-on="$listeners"  aria-hidden="true">
+  <div
+    v-if="isExternalIcon"
+    v-on="$listeners"
+    :style="styleExternalIcon"
+    class="svg-external-icon svg-icon"
+  />
+  <svg v-else :class="svgClass" v-on="$listeners" aria-hidden="true">
     <use :xlink:href="iconName" />
   </svg>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .svg-icon {
   width: 1em;
   height: 1em;

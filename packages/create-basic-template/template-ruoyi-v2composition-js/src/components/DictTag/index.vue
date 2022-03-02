@@ -4,21 +4,20 @@ const props = defineProps({
   // 数据
   options: {
     type: Array,
-    default: null,
+    default: null
   },
   // 当前的值
-  value: [Number, String, Array],
+  value: [Number, String, Array]
 })
 
 /**获取当前的values值 */
 const values = computed(() => {
   if (props.value !== null && typeof props.value !== 'undefined') {
-    return Array.isArray(props.value) ? props.value : [String(props.value)];
+    return Array.isArray(props.value) ? props.value : [String(props.value)]
   } else {
-    return [];
+    return []
   }
 })
-
 </script>
 <template>
   <div>
@@ -29,7 +28,8 @@ const values = computed(() => {
           :key="item.value"
           :index="index"
           :class="item.elTagType"
-        >{{ item.label }}</span>
+          >{{ item.label }}</span
+        >
         <el-tag
           v-else
           :disable-transitions="true"
@@ -37,13 +37,14 @@ const values = computed(() => {
           :index="index"
           :type="item.elTagType === 'primary' ? '' : item.elTagType"
           :class="item.elTagType"
-        >{{ item.label }}</el-tag>
+          >{{ item.label }}</el-tag
+        >
       </template>
     </template>
   </div>
 </template>
 
-<style lang='scss' >
+<style lang="scss">
 .el-tag + .el-tag {
   margin-left: 10px;
 }

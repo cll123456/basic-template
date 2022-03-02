@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-const url = ref('http://doc.ruoyi.vip/ruoyi-cloud');
+import { ref } from 'vue'
+const url = ref('http://doc.ruoyi.vip/ruoyi-cloud')
 
 /**
  * 跳转到gitUp页面
@@ -15,5 +15,4 @@ const goto = () => {
   </div>
 </template>
 
-<style lang='scss' scoped>
-</style>
+<style lang="scss" scoped></style>

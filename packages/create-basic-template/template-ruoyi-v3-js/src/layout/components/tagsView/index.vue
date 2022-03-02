@@ -1,60 +1,65 @@
 <script setup>
 import ScrollPane from './ScrollPane.vue'
-import { ref, computed, getCurrentInstance, nextTick, onMounted, watch } from 'vue'
-import { useStore } from 'vuex';
-import { useRoute, useRouter } from 'vue-router';
-import { getNormalPath } from '../../../utils/ruoyi';
 import {
-  Close
-} from '@element-plus/icons-vue'
+  ref,
+  computed,
+  getCurrentInstance,
+  nextTick,
+  onMounted,
+  watch
+} from 'vue'
+import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router'
+import { getNormalPath } from '../../../utils/ruoyi'
+import { Close } from '@element-plus/icons-vue'
 /**
  * 是否右键打开菜单选项
  */
-const visible = ref(false);
+const visible = ref(false)
 /**
  * 获取当前的实例
  */
-const { proxy } = getCurrentInstance();
+const { proxy } = getCurrentInstance()
 
 /**
  * 右键菜单距离顶部距离
  */
-const top = ref(0);
+const top = ref(0)
 /**
  * 右键菜单左侧距离
  */
-const left = ref(0);
+const left = ref(0)
 /**
  * 当前选中的tag对象，一个路由对象
  */
-const selectedTag = ref({});
+const selectedTag = ref({})
 /**
  * 固定的affixTags数组，路由对象数组
  */
-const affixTags = ref([]);
+const affixTags = ref([])
 
-const store = useStore();
+const store = useStore()
 
-const route = useRoute();
+const route = useRoute()
 
-const router = useRouter();
+const router = useRouter()
 /**
  * 当前需要展示的tags
  */
-const visitedViews = computed(() => store.state.tagsView.visitedViews);
+const visitedViews = computed(() => store.state.tagsView.visitedViews)
 /**
  * 获取当前权限路由，用于点击后展示到tags上
  */
-const routes = computed(() => store.state.permission.routes);
+const routes = computed(() => store.state.permission.routes)
 
 /**
  * scrollPane 的dom
  */
-const scrollPaneRef = ref(null);
+const scrollPaneRef = ref(null)
 /**
  * 获取当前主题
  */
-const theme = computed(() => store.state.settings.theme);
+const theme = computed(() => store.state.settings.theme)
 /**
  * 当前选中的tag
  */
@@ -65,11 +70,11 @@ const isActive = (r) => {
  * 当前选中的tag样式
  */
 const activeStyle = (tag) => {
-  if (!isActive(tag)) return {};
+  if (!isActive(tag)) return {}
   return {
-    "background-color": theme.value,
-    "border-color": theme.value
-  };
+    'background-color': theme.value,
+    'border-color': theme.value
+  }
 }
 /**
  * 当前的tag是否固定在上面
@@ -78,21 +83,27 @@ const isAffix = (tag) => {
   return tag.meta && tag.meta.affix
 }
 /**
- * 是否是首页tag 
+ * 是否是首页tag
  */
 const isFirstView = () => {
   try {
-    return selectedTag.value.fullPath === visitedViews.value[1].fullPath || selectedTag.value.fullPath === '/index'
+    return (
+      selectedTag.value.fullPath === visitedViews.value[1].fullPath ||
+      selectedTag.value.fullPath === '/index'
+    )
   } catch (err) {
     return false
   }
 }
 /**
- * 是否是最后一个tag 
+ * 是否是最后一个tag
  */
 const isLastView = () => {
   try {
-    return selectedTag.value.fullPath === visitedViews.value[visitedViews.value.length - 1].fullPath
+    return (
+      selectedTag.value.fullPath ===
+      visitedViews.value[visitedViews.value.length - 1].fullPath
+    )
   } catch (err) {
     return false
   }
@@ -102,9 +113,12 @@ const isLastView = () => {
  */
 const filterAffixTags = (routes, basePath = '') => {
   let tags = []
-  routes.forEach(route => {
+  routes.forEach((route) => {
     if (route.meta && route.meta.affix) {
-      const p = route.path.length > 0 && route.path[0] === '/' ? route.path : '/' + route.path;
+      const p =
+        route.path.length > 0 && route.path[0] === '/'
+          ? route.path
+          : '/' + route.path
       const tagPath = getNormalPath(basePath + '/' + p)
       tags.push({
         fullPath: tagPath,
@@ -126,8 +140,8 @@ const filterAffixTags = (routes, basePath = '') => {
  * 初始化tags
  */
 const initTags = () => {
-  const res = filterAffixTags(routes.value);
-  affixTags.value = res;
+  const res = filterAffixTags(routes.value)
+  affixTags.value = res
   for (const tag of res) {
     // Must have tag name
     if (tag.name) {
@@ -152,7 +166,7 @@ const moveToCurrentTag = () => {
   nextTick(() => {
     for (const r of visitedViews.value) {
       if (r.path === route.path) {
-        scrollPaneRef.value.moveToTarget(r);
+        scrollPaneRef.value.moveToTarget(r)
         // when query is different then update
         if (r.fullPath !== route.fullPath) {
           store.dispatch('tagsView/updateVisitedView', route)
@@ -188,28 +202,32 @@ const closeSelectedTag = (view) => {
  * 关闭右边的tags
  */
 const closeRightTags = () => {
-  store.dispatch('tagsView/delRightTags', selectedTag.value).then(visitedViews => {
-    if (!visitedViews.find(i => i.fullPath === route.fullPath)) {
-      toLastView(visitedViews)
-    }
-  })
+  store
+    .dispatch('tagsView/delRightTags', selectedTag.value)
+    .then((visitedViews) => {
+      if (!visitedViews.find((i) => i.fullPath === route.fullPath)) {
+        toLastView(visitedViews)
+      }
+    })
 }
 
 /**
  * 关闭左侧的tags
  */
 const closeLeftTags = () => {
-  store.dispatch('tagsView/delLeftTags', selectedTag.value).then(visitedViews => {
-    if (!visitedViews.find(i => i.fullPath === route.fullPath)) {
-      toLastView(visitedViews)
-    }
-  })
+  store
+    .dispatch('tagsView/delLeftTags', selectedTag.value)
+    .then((visitedViews) => {
+      if (!visitedViews.find((i) => i.fullPath === route.fullPath)) {
+        toLastView(visitedViews)
+      }
+    })
 }
 /**
  * 关闭其他的tags
  */
 const closeOthersTags = () => {
-  router.push(selectedTag.value).catch(() => { });
+  router.push(selectedTag.value).catch(() => {})
   store.dispatch('tagsView/delOthersViews', selectedTag.value).then(() => {
     moveToCurrentTag()
   })
@@ -219,7 +237,7 @@ const closeOthersTags = () => {
  */
 const closeAllTags = (view) => {
   store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
-    if (affixTags.value.some(tag => tag.path === route.path)) {
+    if (affixTags.value.some((tag) => tag.path === route.path)) {
       return
     }
     toLastView(visitedViews, view)
@@ -303,7 +321,11 @@ watch(visible, (value) => {
 </script>
 <template>
   <div id="tags-view-container" class="tags-view-container">
-    <scroll-pane ref="scrollPaneRef" class="tags-view-wrapper" @scroll="handleScroll">
+    <scroll-pane
+      ref="scrollPaneRef"
+      class="tags-view-wrapper"
+      @scroll="handleScroll"
+    >
       <router-link
         v-for="tag in visitedViews"
         :key="tag.path"
@@ -316,7 +338,7 @@ watch(visible, (value) => {
         @contextmenu.prevent.native="openMenu(tag, $event)"
       >
         {{ tag.title }}
-        
+
         <el-icon
           v-if="!isAffix(tag)"
           class="el-icon-close"
@@ -326,7 +348,11 @@ watch(visible, (value) => {
         </el-icon>
       </router-link>
     </scroll-pane>
-    <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
+    <ul
+      v-show="visible"
+      :style="{ left: left + 'px', top: top + 'px' }"
+      class="contextmenu"
+    >
       <li @click="refreshSelectedTag(selectedTag)">
         <i class="el-icon-refresh-right"></i> 刷新页面
       </li>
@@ -349,7 +375,7 @@ watch(visible, (value) => {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .tags-view-container {
   height: 34px;
   width: 100%;
@@ -381,7 +407,7 @@ watch(visible, (value) => {
         color: #fff;
         border-color: #42b983;
         &::before {
-          content: "";
+          content: '';
           background: #fff;
           display: inline-block;
           width: 8px;

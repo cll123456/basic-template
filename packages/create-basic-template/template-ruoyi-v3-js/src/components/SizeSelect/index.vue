@@ -1,36 +1,36 @@
 <script setup>
-import { ElMessage } from 'element-plus';
-import { ref, computed, nextTick,getCurrentInstance  } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { ElMessage } from 'element-plus'
+import { ref, computed, nextTick, getCurrentInstance } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 /**
  * store
  */
-const store = useStore();
+const store = useStore()
 /**
  * 当前的大小
  */
-const size = computed(() => store.getters.size);
+const size = computed(() => store.getters.size)
 /***
  * 当前路由对象
  */
-const route = useRoute();
+const route = useRoute()
 /**
  * 当前路由实例
  */
-const router = useRouter();
+const router = useRouter()
 /**
  * 获取当前实例
  */
-const {proxy} = getCurrentInstance();
+const { proxy } = getCurrentInstance()
 /**
  * size options
  */
 const sizeOptions = ref([
   { label: 'Large', value: 'large' },
   { label: 'Default', value: 'default' },
-  { label: 'Small', value: 'small' },
+  { label: 'Small', value: 'small' }
 ])
 
 /**
@@ -60,8 +60,7 @@ const handleSetSize = (size) => {
     message: 'Switch Size Success',
     type: 'success'
   })
-};
-
+}
 </script>
 <template>
   <div>
@@ -77,9 +76,7 @@ const handleSetSize = (size) => {
             :disabled="size === item.value"
             :command="item.value"
           >
-            {{
-              item.label
-            }}
+            {{ item.label }}
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -87,7 +84,7 @@ const handleSetSize = (size) => {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .size-icon--style {
   font-size: 18px;
   line-height: 50px;

@@ -1,39 +1,43 @@
 <script setup>
-import { computed, ref, getCurrentInstance, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex';
-import tagsView from '../../../store/modules/tagsView';
+import {
+  computed,
+  ref,
+  getCurrentInstance,
+  onMounted,
+  onBeforeUnmount
+} from 'vue'
+import { useStore } from 'vuex'
+import tagsView from '../../../store/modules/tagsView'
 /**
  *  每一个tag的间隔
  */
-const tagAndTagSpacing = ref(4);
+const tagAndTagSpacing = ref(4)
 /**
  * 仓库
  */
-const store = useStore();
+const store = useStore()
 
 /**
  * 获取当前的实例
  */
-const { proxy } = getCurrentInstance();
+const { proxy } = getCurrentInstance()
 /**
  * 向上分发方法
  */
 const emits = defineEmits()
 
-
-
-const scrollContainer = ref(null);
+const scrollContainer = ref(null)
 /**
  * 获取滚动内部的实例
  */
-const scrollWrapper = computed(() => scrollContainer.value.$refs.wrap$);
+const scrollWrapper = computed(() => scrollContainer.value.$refs.wrap$)
 
 /**
  * 每一次滚动的距离
  */
 const handleScroll = (e) => {
   const eventDelta = e.wheelDelta || -e.deltaY * 40
-  const $scrollWrapper = scrollWrapper.value;
+  const $scrollWrapper = scrollWrapper.value
   $scrollWrapper.scrollLeft = $scrollWrapper.scrollLeft + eventDelta / 4
 }
 /**
@@ -46,7 +50,7 @@ const emitScroll = () => {
 /**
  * 当前需要展示的tags
  */
-const visitedViews = computed(() => store.state.tagsView.visitedViews);
+const visitedViews = computed(() => store.state.tagsView.visitedViews)
 
 /**
  * 滚动目标
@@ -54,7 +58,7 @@ const visitedViews = computed(() => store.state.tagsView.visitedViews);
 const moveToTarget = (currentTag) => {
   const $container = proxy.$refs.scrollContainer.$el
   const $containerWidth = $container.offsetWidth
-  const $scrollWrapper = scrollWrapper.value;
+  const $scrollWrapper = scrollWrapper.value
 
   let firstTag = null
   let lastTag = null
@@ -73,26 +77,35 @@ const moveToTarget = (currentTag) => {
     $scrollWrapper.scrollLeft = $scrollWrapper.scrollWidth - $containerWidth
   } else {
     // 这里是移动中间部位
-    const tagListDom = document.getElementsByClassName('tags-view-item');
+    const tagListDom = document.getElementsByClassName('tags-view-item')
     // find preTag and nextTag
-    const currentIndex = visitedViews.value.findIndex(item => item === currentTag)
+    const currentIndex = visitedViews.value.findIndex(
+      (item) => item === currentTag
+    )
     let prevTag = null
     let nextTag = null
     // 获取上一个和下一个的tag的dom
     for (const k in tagListDom) {
       // 除去length属性
       if (k !== 'length' && Object.hasOwnProperty.call(tagListDom, k)) {
-        if (tagListDom[k].dataset.path === visitedViews.value[currentIndex - 1].path) {
-          prevTag = tagListDom[k];
+        if (
+          tagListDom[k].dataset.path ===
+          visitedViews.value[currentIndex - 1].path
+        ) {
+          prevTag = tagListDom[k]
         }
-        if (tagListDom[k].dataset.path === visitedViews.value[currentIndex + 1].path) {
-          nextTag = tagListDom[k];
+        if (
+          tagListDom[k].dataset.path ===
+          visitedViews.value[currentIndex + 1].path
+        ) {
+          nextTag = tagListDom[k]
         }
       }
     }
 
     // the tag's offsetLeft after of nextTag
-    const afterNextTagOffsetLeft = nextTag.offsetLeft + nextTag.offsetWidth + tagAndTagSpacing.value
+    const afterNextTagOffsetLeft =
+      nextTag.offsetLeft + nextTag.offsetWidth + tagAndTagSpacing.value
 
     // the tag's offsetLeft before of prevTag
     const beforePrevTagOffsetLeft = prevTag.offsetLeft - tagAndTagSpacing.value
@@ -117,7 +130,7 @@ onBeforeUnmount(() => {
 })
 
 defineExpose({
-  moveToTarget,
+  moveToTarget
 })
 </script>
 <template>
@@ -131,7 +144,7 @@ defineExpose({
   </el-scrollbar>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .scroll-container {
   white-space: nowrap;
   position: relative;

@@ -1,47 +1,47 @@
 <script setup>
 import Fuse from 'fuse.js'
 import { computed, ref, nextTick, onMounted, watchEffect, watch } from 'vue'
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
-import { getNormalPath } from '../../utils/ruoyi';
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { getNormalPath } from '../../utils/ruoyi'
 /**
  * 当前搜索的内容
  */
-const search = ref('');
+const search = ref('')
 /**
  * 数组
  */
-const options = ref([]);
+const options = ref([])
 /**
  * 搜索池
  */
-const searchPool = ref([]);
+const searchPool = ref([])
 /**
  * 是否select
  */
-const show = ref(false);
+const show = ref(false)
 /**
  * fuse对象
  */
-const fuse = ref(undefined);
+const fuse = ref(undefined)
 /**
  * 仓库
  */
-const store = useStore();
+const store = useStore()
 
 /**
  * 获取当前的路由菜单
  */
-const routes = computed(() => store.getters.permission_routes);
+const routes = computed(() => store.getters.permission_routes)
 /**
  * headerSearch  Dom
  */
-const headerSearchSelectRef = ref(null);
+const headerSearchSelectRef = ref(null)
 
 /**
  * 路由实例
  */
-const router = useRouter();
+const router = useRouter()
 /**
  * 点击图片，打开输入框
  */
@@ -50,7 +50,7 @@ const click = () => {
   if (show.value) {
     headerSearchSelectRef.value && headerSearchSelectRef.value.focus()
   }
-};
+}
 /**
  * 关闭图标
  */
@@ -69,11 +69,11 @@ const ishttp = (url) => {
  * 点击结果，进入路由
  */
 const change = (val) => {
-  const path = val.path;
+  const path = val.path
   if (ishttp(path)) {
     // http(s):// 路径新窗口打开
-    const pindex = path.indexOf("http");
-    window.open(path.substr(pindex, path.length), "_blank");
+    const pindex = path.indexOf('http')
+    window.open(path.substr(pindex, path.length), '_blank')
   } else {
     router.push(path)
   }
@@ -96,13 +96,16 @@ const initFuse = (list) => {
     distance: 100,
     maxPatternLength: 32,
     minMatchCharLength: 1,
-    keys: [{
-      name: 'title',
-      weight: 0.7
-    }, {
-      name: 'path',
-      weight: 0.3
-    }]
+    keys: [
+      {
+        name: 'title',
+        weight: 0.7
+      },
+      {
+        name: 'path',
+        weight: 0.3
+      }
+    ]
   })
 }
 /**
@@ -113,8 +116,10 @@ const generateRoutes = (routes, basePath = '', prefixTitle = []) => {
 
   for (const r of routes) {
     // skip hidden router
-    if (r.hidden) { continue }
-    const p = r.path.length > 0 && r.path[0] === '/' ? r.path : '/' + r.path;
+    if (r.hidden) {
+      continue
+    }
+    const p = r.path.length > 0 && r.path[0] === '/' ? r.path : '/' + r.path
     const data = {
       path: !ishttp(r.path) ? getNormalPath(basePath + p) : r.path,
       title: [...prefixTitle]
@@ -154,7 +159,7 @@ const querySearch = (query) => {
 
 // 初始化搜索池
 onMounted(() => {
-  searchPool.value = generateRoutes(routes.value);
+  searchPool.value = generateRoutes(routes.value)
 })
 
 // routes发生改变需要更新搜索池
@@ -181,8 +186,12 @@ watch(searchPool, (list) => {
 })
 </script>
 <template>
-  <div :class="{ 'show': show }" class="header-search">
-    <svg-icon class-name="search-icon" icon-class="search" @click.stop="click" />
+  <div :class="{ show: show }" class="header-search">
+    <svg-icon
+      class-name="search-icon"
+      icon-class="search"
+      @click.stop="click"
+    />
     <el-select
       ref="headerSearchSelectRef"
       v-model="search"
@@ -204,7 +213,7 @@ watch(searchPool, (list) => {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .header-search {
   font-size: 0 !important;
 

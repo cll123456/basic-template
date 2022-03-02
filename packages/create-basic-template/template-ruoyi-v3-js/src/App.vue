@@ -1,8 +1,8 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
 
 onMounted(() => {
-  document.getElementById('loading-wrapper').remove();
+  document.getElementById('loading-wrapper').remove()
 })
 </script>
 
@@ -10,5 +10,4 @@ onMounted(() => {
   <router-view />
 </template>
 
-<style>
-</style>
+<style></style>

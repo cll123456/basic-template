@@ -1,16 +1,11 @@
 <script>
-export default{
-   name: '404'
+export default {
+  name: '404'
 }
-
 </script>
-<script setup>
-
-</script>
+<script setup></script>
 <template>
-   <div>404</div>
+  <div>404</div>
 </template>
 
-<style lang='scss' scoped>
-
-</style>
+<style lang="scss" scoped></style>

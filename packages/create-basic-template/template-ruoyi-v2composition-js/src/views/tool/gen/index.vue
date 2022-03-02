@@ -1,10 +1,6 @@
-<script setup>
-
-</script>
+<script setup></script>
 <template>
-   <div>gen</div>
+  <div>gen</div>
 </template>
 
-<style lang='scss' scoped>
-
-</style>
+<style lang="scss" scoped></style>

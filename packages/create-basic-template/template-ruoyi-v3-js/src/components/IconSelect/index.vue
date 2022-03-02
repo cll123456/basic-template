@@ -1,25 +1,24 @@
 <script setup>
-import SvgIcon from './../SvgIcon/index.vue';
-import { ref } from 'vue';
-
+import SvgIcon from './../SvgIcon/index.vue'
+import { ref } from 'vue'
 
 let icons = []
-const modules = import.meta.glob('./../../assets/icons/svg/*.svg');
+const modules = import.meta.glob('./../../assets/icons/svg/*.svg')
 for (const path in modules) {
-  const p = path.split('assets/icons/svg/')[1].split('.svg')[0];
-  icons.push(p);
+  const p = path.split('assets/icons/svg/')[1].split('.svg')[0]
+  icons.push(p)
 }
 /**当前选中的icon */
-const iconName = ref('');
+const iconName = ref('')
 
 /**iconllist */
-const iconList = ref(icons);
-const emit = defineEmits(['selected']);
+const iconList = ref(icons)
+const emit = defineEmits(['selected'])
 
 const filterIcons = () => {
   iconList.value = icons
   if (iconName.value) {
-    iconList.value = icons.filter(item => item.indexOf(iconName.value) !== -1)
+    iconList.value = icons.filter((item) => item.indexOf(iconName.value) !== -1)
   }
 }
 
@@ -41,7 +40,7 @@ defineExpose({
   <div class="icon-body">
     <el-input
       v-model="iconName"
-      style="position: relative;"
+      style="position: relative"
       clearable
       placeholder="请输入图标名称"
       @clear="filterIcons"
@@ -50,15 +49,19 @@ defineExpose({
       <i slot="suffix" class="el-icon-search el-input__icon" />
     </el-input>
     <div class="icon-list">
-      <div v-for="(item, index) in iconList" :key="index" @click="selectedIcon(item)">
-        <svg-icon :icon-class="item" style="height: 30px;width: 16px;" />
+      <div
+        v-for="(item, index) in iconList"
+        :key="index"
+        @click="selectedIcon(item)"
+      >
+        <svg-icon :icon-class="item" style="height: 30px; width: 16px" />
         <span>{{ item }}</span>
       </div>
     </div>
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .icon-body {
   width: 100%;
   padding: 10px;

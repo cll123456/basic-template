@@ -1,72 +1,70 @@
 <script setup>
-import { ref } from 'vue';
-import {Menu,Refresh,Search} from '@element-plus/icons-vue'
+import { ref } from 'vue'
+import { Menu, Refresh, Search } from '@element-plus/icons-vue'
 const props = defineProps({
   /**
    * 是否显示搜索条件
    */
   showSearch: {
     type: Boolean,
-    default: true,
+    default: true
   },
   /**
    * 所有的列
    */
   columns: {
-    type: Array,
-  },
+    type: Array
+  }
 })
 
-const emits = defineEmits(['update:showSearch', 'queryTable']);
+const emits = defineEmits(['update:showSearch', 'queryTable'])
 /**
  * 显隐数据
  */
-const value = ref([]);
+const value = ref([])
 /**
  * 弹出层标题
  */
-const title = ref("显示/隐藏");
+const title = ref('显示/隐藏')
 /**
  * 是否显示弹出层
  */
-const open = ref(false);
-
+const open = ref(false)
 
 /**
  * 搜索
  */
 const toggleSearch = () => {
-  emits("update:showSearch", !props.showSearch);
+  emits('update:showSearch', !props.showSearch)
 }
 /**
  * 刷新
  */
 const refresh = () => {
-  emits("queryTable");
+  emits('queryTable')
 }
 /**
  * 右侧列表元素变化
  */
 const dataChange = (data) => {
   for (let item in props.columns) {
-    const key = props.columns[item].key;
-    props.columns[item].visible = !data.includes(key);
+    const key = props.columns[item].key
+    props.columns[item].visible = !data.includes(key)
   }
 }
 /**
  * 打开显隐列dialog
  */
 const showColumn = () => {
-  open.value = true;
+  open.value = true
 }
 
 // 显隐列初始默认隐藏列
 for (let item in props.columns) {
   if (props.columns[item].visible === false) {
-    value.value.push(parseInt(item));
+    value.value.push(parseInt(item))
   }
 }
-
 </script>
 <template>
   <div class="top-right-btn">
@@ -82,7 +80,13 @@ for (let item in props.columns) {
       <el-tooltip class="item" effect="dark" content="刷新" placement="top">
         <el-button circle :icon="Refresh" @click="refresh()" />
       </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="显隐列" placement="top" v-if="columns">
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="显隐列"
+        placement="top"
+        v-if="columns"
+      >
         <el-button circle :icon="Menu" @click="showColumn()" />
       </el-tooltip>
     </el-row>
@@ -98,7 +102,7 @@ for (let item in props.columns) {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 :deep(.el-transfer__button) {
   border-radius: 50%;
   padding: 12px;

@@ -1,8 +1,8 @@
-import VueRouter from "vue-router";
-import Layout from './../layout/index.vue';
-import Vue from 'vue';
+import VueRouter from 'vue-router'
+import Layout from './../layout/index.vue'
+import Vue from 'vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 /**
  * Note: 路由配置项
  *
@@ -22,7 +22,6 @@ Vue.use(VueRouter);
     activeMenu: '/system/user'      // 当路由设置了该属性，则会高亮相对应的侧边栏。
   }
  */
-
 
 /**
  * 公共路由
@@ -134,20 +133,19 @@ export const constantRoutes = [
         meta: { title: '调度日志', activeMenu: '/monitor/job' }
       }
     ]
-  },
-];
+  }
+]
 
 const router = new VueRouter({
   mode: 'history',
-  routes:  constantRoutes,
+  routes: constantRoutes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
       return { top: 0 }
     }
-  },
+  }
 })
 
-
-export default router;
+export default router

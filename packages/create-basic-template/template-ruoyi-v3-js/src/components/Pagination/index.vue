@@ -69,7 +69,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits();
+const emit = defineEmits()
 /**
  * 当前第几页
  */
@@ -95,7 +95,7 @@ const pageSize = computed({
  * 每页条数切换
  */
 const handleSizeChange = (val) => {
-  pageSize.value = val;
+  pageSize.value = val
   emit('pagination')
   if (props.autoScroll) {
     scrollTo(0, 800)
@@ -105,16 +105,15 @@ const handleSizeChange = (val) => {
  * 页码切换
  */
 const handleCurrentChange = (val) => {
-  currentPage.value = val;
+  currentPage.value = val
   emit('pagination')
   if (props.autoScroll) {
     scrollTo(0, 800)
   }
 }
-
 </script>
 <template>
-  <div :class="{ 'hidden': props.hidden }" class="pagination-container">
+  <div :class="{ hidden: props.hidden }" class="pagination-container">
     <el-pagination
       :background="props.background"
       v-model:current-page="currentPage"
@@ -129,7 +128,7 @@ const handleCurrentChange = (val) => {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .pagination-container {
   background: #fff;
   padding: 32px 16px;

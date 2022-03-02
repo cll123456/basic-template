@@ -1,5 +1,5 @@
 <script setup>
-import { useStore } from "vuex"
+import { useStore } from 'vuex'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { computed } from 'vue'
 import RuoYiGit from './../../../components/Ruoyi/Git/index.vue'
@@ -15,12 +15,12 @@ import HeaderSearch from './../../../components/HeaderSearch/index.vue'
 /**
  * 仓库对象
  */
-const store = useStore();
+const store = useStore()
 
 /**
  * getter 数据
  */
-const getterData = computed(() => store.getters);
+const getterData = computed(() => store.getters)
 
 const emits = defineEmits(['settingLayout'])
 /**
@@ -38,22 +38,24 @@ const logout = () => {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
-  }).then(() => {
-    store.dispatch('LogOut').then(() => {
-      ElMessage({
-        type: 'success',
-        message: '退出成功！',
+  })
+    .then(() => {
+      store.dispatch('LogOut').then(() => {
+        ElMessage({
+          type: 'success',
+          message: '退出成功！'
+        })
+        location.href = '/index'
       })
-      location.href = '/index';
     })
-  }).catch(() => { });
+    .catch(() => {})
 }
 
 /**
  * 打开设置
  */
 const settingLayout = () => {
-  emits('settingLayout');
+  emits('settingLayout')
 }
 </script>
 <template>
@@ -65,7 +67,11 @@ const settingLayout = () => {
       @toggleClick="toggleSideBar"
     />
 
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!getterData.topNav" />
+    <breadcrumb
+      id="breadcrumb-container"
+      class="breadcrumb-container"
+      v-if="!getterData.topNav"
+    />
     <!-- <top-nav id="topmenu-container" class="topmenu-container" v-if="topNav" /> -->
 
     <div class="right-menu">
@@ -115,7 +121,7 @@ const settingLayout = () => {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .navbar {
   height: 50px;
   overflow: hidden;

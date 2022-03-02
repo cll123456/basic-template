@@ -14,9 +14,8 @@ const emit = defineEmits()
  * 切换按钮
  */
 const toggleClick = () => {
-  emit('toggleClick');
+  emit('toggleClick')
 }
-
 </script>
 <template>
   <div class="hamburger--container" @click="toggleClick">
@@ -35,7 +34,7 @@ const toggleClick = () => {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .hamburger--container {
   padding: 0 15px;
 

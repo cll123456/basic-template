@@ -1,6 +1,6 @@
 <script setup>
-import { computed, ref } from '@vue/composition-api';
-import variable from './../../../assets/styles/variables.module.scss';
+import { computed, ref } from '@vue/composition-api'
+import variable from './../../../assets/styles/variables.module.scss'
 import logo from './../../../assets/logo/logo.png'
 
 const props = defineProps({
@@ -18,44 +18,50 @@ import store from '@/store'
 /**
  * 颜色变量
  */
-const variables = computed(() => variable);
+const variables = computed(() => variable)
 /**
  * 标题
  */
-const title = ref('若依管理系统');
+const title = ref('若依管理系统')
 
 /**
  * 左侧的风格
  */
-const sideTheme = computed(() => store.state.settings.sideTheme);
+const sideTheme = computed(() => store.state.settings.sideTheme)
 
 /**
  * 系统设置
  */
-const settings = computed(() => store.state.settings);
+const settings = computed(() => store.state.settings)
 </script>
 
 <template>
   <div
     class="sidebar-logo-container"
-    :class="{ 'collapse': props.collapse }"
-    :style="{ backgroundColor:settings.menuBgColor}"
+    :class="{ collapse: props.collapse }"
+    :style="{ backgroundColor: settings.menuBgColor }"
   >
     <transition name="sidebarLogoFade">
-      <router-link v-if="props.collapse" key="collapse" class="sidebar-logo-link" to="/">
+      <router-link
+        v-if="props.collapse"
+        key="collapse"
+        class="sidebar-logo-link"
+        to="/"
+      >
         <img v-if="logo" :src="logo" class="sidebar-logo" />
         <h1
           v-else
           class="sidebar-title"
           :style="{ color: settings.headerTextColor }"
-        >{{ title }}</h1>
+        >
+          {{ title }}
+        </h1>
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="logo" class="sidebar-logo" />
-        <h1
-          class="sidebar-title"
-          :style="{ color:settings.headerTextColor }"
-        >{{ title }}</h1>
+        <h1 class="sidebar-title" :style="{ color: settings.headerTextColor }">
+          {{ title }}
+        </h1>
       </router-link>
     </transition>
   </div>

@@ -1,11 +1,11 @@
-@import "./variables.module.scss";
+@import './variables.module.scss';
 // @import "element-ui/packages/theme-chalk/src/index";
-@import "./mixin.scss";
-@import "./transition.scss";
-@import "./element-ui.scss";
-@import "./sidebar.scss";
-@import "./btn.scss";
-@import "./ruoyi.scss";
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+@import './btn.scss';
+@import './ruoyi.scss';
 
 body {
   height: 100%;
@@ -13,7 +13,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
 }
 
 label {
@@ -93,7 +94,7 @@ div:focus {
     visibility: hidden;
     display: block;
     font-size: 0;
-    content: " ";
+    content: ' ';
     clear: both;
     height: 0;
   }
@@ -107,8 +108,8 @@ aside {
   display: block;
   line-height: 32px;
   font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   color: #2c3e50;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -240,12 +241,14 @@ aside {
   --el-border-width-base: 1px;
   --el-border-style-base: solid;
   --el-border-color-hover: var(--el-text-color-placeholder);
-  --el-border-base: var(--el-border-width-base) var(--el-border-style-base) var(--el-border-color-base);
+  --el-border-base: var(--el-border-width-base) var(--el-border-style-base)
+    var(--el-border-color-base);
   --el-border-radius-base: 4px;
   --el-border-radius-small: 2px;
   --el-border-radius-round: 20px;
   --el-border-radius-circle: 100%;
-  --el-box-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  --el-box-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12),
+    0 0 6px rgba(0, 0, 0, 0.04);
   --el-box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   --el-svg-monochrome-grey: #dcdde0;
   --el-fill-base: var(--el-color-white);
@@ -266,14 +269,24 @@ aside {
   --el-disabled-border-base: var(--el-border-color-light);
   --el-transition-duration: 0.3s;
   --el-transition-duration-fast: 0.2s;
-  --el-transition-function-ease-in-out-bezier: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --el-transition-function-ease-in-out-bezier: cubic-bezier(
+    0.645,
+    0.045,
+    0.355,
+    1
+  );
   --el-transition-function-fast-bezier: cubic-bezier(0.23, 1, 0.32, 1);
-  --el-transition-all: all var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
-  --el-transition-fade: opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
-  --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier),
-    opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+  --el-transition-all: all var(--el-transition-duration)
+    var(--el-transition-function-ease-in-out-bezier);
+  --el-transition-fade: opacity var(--el-transition-duration)
+    var(--el-transition-function-fast-bezier);
+  --el-transition-md-fade: transform var(--el-transition-duration)
+      var(--el-transition-function-fast-bezier),
+    opacity var(--el-transition-duration)
+      var(--el-transition-function-fast-bezier);
   --el-transition-fade-linear: opacity var(--el-transition-duration-fast) linear;
   --el-transition-border: border-color var(--el-transition-duration-fast)
     var(--el-transition-function-ease-in-out-bezier);
-  --el-transition-color: color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+  --el-transition-color: color var(--el-transition-duration-fast)
+    var(--el-transition-function-ease-in-out-bezier);
 }

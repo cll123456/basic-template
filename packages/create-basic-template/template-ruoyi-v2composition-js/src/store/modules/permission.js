@@ -1,8 +1,8 @@
 import { constantRoutes } from '@/router'
 import { getRouters } from '@/api/menu'
 import Layout from '@/layout/index.vue'
-import ParentView from '@/components/ParentView/index.vue';
-import { isExternal } from '../../utils/validate';
+import ParentView from '@/components/ParentView/index.vue'
+import { isExternal } from '../../utils/validate'
 // import InnerLink from '@/layout/components/InnerLink'
 // import User from './../../views/system/user/index.vue'
 
@@ -42,27 +42,29 @@ const permission = {
     },
     SET_TOPBAR_ROUTES: (state, routes) => {
       // 顶部导航菜单默认添加统计报表栏指向首页
-      const index = [{
-        path: 'index',
-        meta: { title: '统计报表', icon: 'dashboard' }
-      }]
-      state.topbarRouters = routes.concat(index);
+      const index = [
+        {
+          path: 'index',
+          meta: { title: '统计报表', icon: 'dashboard' }
+        }
+      ]
+      state.topbarRouters = routes.concat(index)
     },
     SET_SIDEBAR_ROUTERS: (state, routes) => {
       state.sidebarRouters = routes
-    },
+    }
   },
   actions: {
     // 生成路由
     GenerateRoutes({ commit }) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         // 向后端请求路由数据
-        getRouters().then(res => {
+        getRouters().then((res) => {
           const sdata = JSON.parse(JSON.stringify(res.data))
           const rdata = JSON.parse(JSON.stringify(res.data))
           const sidebarRoutes = filterAsyncRouter(sdata)
           const rewriteRoutes = filterAsyncRouter(rdata, false, true)
-          console.log(sidebarRoutes,'------------=====----sidebarRoutes')
+          console.log(sidebarRoutes, '------------=====----sidebarRoutes')
           rewriteRoutes.push({ path: '/*', redirect: '/404', hidden: true })
           commit('SET_ROUTES', rewriteRoutes)
           commit('SET_SIDEBAR_ROUTERS', constantRoutes.concat(sidebarRoutes))
@@ -77,7 +79,7 @@ const permission = {
 
 // 遍历后台传来的路由字符串，转换为组件对象
 function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
-  return asyncRouterMap.filter(route => {
+  return asyncRouterMap.filter((route) => {
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
@@ -90,7 +92,7 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
         // } else if (route.component === 'InnerLink') {
         //   route.component = InnerLink
       } else {
-        route.component = loadView(route.component);
+        route.component = loadView(route.component)
       }
     }
     if (route.children != null && route.children && route.children.length) {
@@ -108,7 +110,7 @@ function filterChildren(childrenMap, lastRouter = false) {
   childrenMap.forEach((el, index) => {
     if (el.children && el.children.length) {
       if (el.component === 'ParentView') {
-        el.children.forEach(c => {
+        el.children.forEach((c) => {
           c.path = el.path + '/' + c.path
           if (c.children && c.children.length) {
             children = children.concat(filterChildren(c.children, c))
@@ -129,18 +131,18 @@ function filterChildren(childrenMap, lastRouter = false) {
 
 /**
  * // 路由懒加载
- * @param {*} view 
- * @returns 
+ * @param {*} view
+ * @returns
  */
 export const loadView = (view) => {
-  let res ;
+  let res
   for (const path in modules) {
-    const dir = path.split('views/')[1].split('.vue')[0];
+    const dir = path.split('views/')[1].split('.vue')[0]
     if (dir === view) {
-      res = () => modules[path]();
+      res = () => modules[path]()
     }
   }
-  return res;
+  return res
 }
 
 export default permission

@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from "@vue/composition-api";
-import { isExternal } from "../../../utils/validate";
+import { computed } from '@vue/composition-api'
+import { isExternal } from '../../../utils/validate'
 
 const props = defineProps({
   /**
@@ -29,8 +29,6 @@ const type = computed(() => {
   return 'router-link'
 })
 
-
-
 const linkProps = () => {
   if (isExternalPath.value) {
     return {
@@ -50,5 +48,4 @@ const linkProps = () => {
   </component>
 </template>
 
-<style lang='scss' scoped>
-</style>
+<style lang="scss" scoped></style>
