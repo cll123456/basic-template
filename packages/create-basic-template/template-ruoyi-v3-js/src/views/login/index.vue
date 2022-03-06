@@ -122,12 +122,7 @@ getCookie()
 </script>
 <template>
   <div class="login">
-    <el-form
-      ref="loginFormRef"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-    >
+    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">若依后台管理系统——VUE3JS</h3>
       <el-form-item prop="username">
         <el-input
@@ -137,11 +132,7 @@ getCookie()
           auto-complete="off"
           placeholder="账号"
         >
-          <svg-icon
-            slot="prefix"
-            icon-class="user"
-            class="el-input__icon input-icon"
-          />
+          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
@@ -154,11 +145,7 @@ getCookie()
           show-password
           @keyup.enter.native="handleLogin"
         >
-          <svg-icon
-            slot="prefix"
-            icon-class="password"
-            class="el-input__icon input-icon"
-          />
+          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
       <el-form-item prop="code" v-if="captchaOnOff">
@@ -170,21 +157,13 @@ getCookie()
           style="width: 63%"
           @keyup.enter.native="handleLogin"
         >
-          <svg-icon
-            slot="prefix"
-            icon-class="validCode"
-            class="el-input__icon input-icon"
-          />
+          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
         </el-input>
         <div class="login-code">
           <img :src="codeUrl" @click="getCode" class="login-code-img" />
         </div>
       </el-form-item>
-      <el-checkbox
-        v-model="loginForm.rememberMe"
-        style="margin: 0px 0px 25px 0px"
-        >记住密码</el-checkbox
-      >
+      <el-checkbox v-model="loginForm.rememberMe" style="margin: 0px 0px 25px 0px">记住密码</el-checkbox>
       <el-form-item style="width: 100%">
         <el-button
           :loading="loading"
@@ -196,9 +175,7 @@ getCookie()
           <span v-else>登 录 中...</span>
         </el-button>
         <div style="float: right" v-if="register">
-          <router-link class="link-type" :to="'/register'"
-            >立即注册</router-link
-          >
+          <router-link class="link-type" :to="'/register'">立即注册</router-link>
         </div>
       </el-form-item>
     </el-form>
@@ -215,7 +192,7 @@ getCookie()
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url('./../../assets/images/login-background.jpg');
+  background-image: url("./../../assets/images/login-background.jpg");
   background-size: cover;
 }
 .title {

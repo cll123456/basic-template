@@ -2,8 +2,8 @@
 import { ref, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
 import avatar from './../../../../assets/images/profile.jpg'
-import 'vue-cropper/dist/index.css'
-import { VueCropper } from 'vue-cropper'
+// import 'vue-cropper/dist/index.css'
+// import { VueCropper } from 'vue-cropper'
 import { uploadAvatar } from '@/api/system/user'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import {
@@ -125,7 +125,7 @@ const closeDialog = () => {
   >
     <el-row>
       <el-col :xs="24" :md="12" :style="{ height: '350px' }">
-        <vue-cropper
+        <!-- <vue-cropper
           ref="cropper"
           :img="options.img"
           :info="true"
@@ -135,7 +135,7 @@ const closeDialog = () => {
           :fixedBox="options.fixedBox"
           @realTime="realTime"
           v-if="options.isCropper"
-        />
+        /> -->
       </el-col>
       <el-col :xs="24" :md="12" :style="{ height: '350px' }">
         <div class="avatar-upload-preview">

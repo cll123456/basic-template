@@ -1,0 +1,42 @@
+{
+  "name": "vue2-3-form-design",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "vue-fix": "bin/vue-fix.js",
+    "vue-switch": "bin/vue-switch.js"
+  },
+  "main": "lib/v3/index.es.js",
+  "module": "lib/v3/index.es.js",
+  "scripts": {
+    "todos": " postinstall node ./scripts/postinstall.js",
+    "switch2": "node bin/vue-switch.js 2",
+    "switch3": "node bin/vue-switch.js 3",
+    "build": "pnpm run build3 && pnpm run build2",
+    "build3": "pnpx vue-demi-switch 3 && vue-tsc --noEmit && vite build",
+    "build2": "pnpx vue-demi-switch 2 &&  vite build",
+    "dev3": "pnpx vue-demi-switch 3 && vite --host"
+  },
+  "author": "Twinkle <6254321abc@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.2.2",
+    "element-plus": "^2.0.2",
+    "sass": "^1.49.9",
+    "vue": "^3.2.31",
+    "vue-demi": "^0.12.1",
+    "vue-tsc": "^0.32.1"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.4.0",
+    "vue": "^2.6.0 || ^3.2.0"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    },
+    "@vue/composition-api": {
+      "optional": true
+    }
+  }
+}

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { getUserProfile } from '../../../../api/system/user'
 import resetPwd from './resetPwd.vue'
-import userAvatar from './userAvatar.vue'
+// import userAvatar from './userAvatar.vue'
 import userInfo from './userInfo.vue'
 
 /**
@@ -37,7 +37,7 @@ getUser()
           </div>
           <div>
             <div class="text-center">
-              <userAvatar :user="user" />
+              <!-- <userAvatar :user="user" /> -->
             </div>
             <ul class="list-group list-group-striped">
               <li class="list-group-item">
