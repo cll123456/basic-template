@@ -20,11 +20,12 @@
     "js-cookie": "^3.0.1",
     "jsencrypt": "^3.2.1",
     "nprogress": "^0.2.0",
+    "sortablejs": "^1.14.0",
     "vue": "^3.2.31",
     "vue-cropper": "^1.0.2",
     "vue-router": "^4.0.12",
-    "vuex": "^4.0.2",
-    "vue2-3-form-design": "workspace:*"
+    "vuedraggable": "^4.1.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.2",
@@ -55,9 +56,10 @@
         "js-cookie",
         "jsencrypt/bin/jsencrypt.min",
         "nprogress",
+        "sortablejs",
         "vue",
-        "vue-demi",
         "vue-router",
+        "vuedraggable",
         "vuex"
       ]
     }

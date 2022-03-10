@@ -36,7 +36,12 @@ module.exports = defineConfig({
 		'node/no-deprecated-api': 'off',
 		'node/no-unpublished-import': 'off',
 		'node/no-unpublished-require': 'off',
-		'node/no-unsupported-features/es-syntax': 'off',
+    'node/no-unsupported-features/es-syntax': 'off',
+    "node/no-missing-import": ["error", {
+      "allowModules": [],
+      "resolvePaths": ["/packages/**"],
+      "tryExtensions": [".js", ".json", ".ts", ]
+     }],
 
 		'vue/script-setup-uses-vars': 'error',
 		'vue/singleline-html-element-content-newline': [
@@ -46,7 +51,15 @@ module.exports = defineConfig({
 				ignoreWhenEmpty: true,
 				ignores: [ 'pre', 'textarea' ]
 			}
-		],
+    ],
+    "vue/max-attributes-per-line": ["off", {
+      "singleline": {
+        "max": 1
+      },      
+      "multiline": {
+        "max": 1
+      }
+    }],
 		'vue/comment-directive': 'off',
 
 		'@typescript-eslint/ban-ts-comment': 'off', // TODO: we should turn this on in a new PR

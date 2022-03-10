@@ -29,10 +29,3 @@ app.use(store);
 app.component('svg-icon', SvgIcon);
 app.mount('#app');
 
-// const win = window;
-
-// if (process.env.NODE_ENV === 'development') {
-// 	if ('__VUE_DEVTOOLS_GLOBAL_HOOK__' in win) {
-// 		win.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app;
-// 	}
-// }

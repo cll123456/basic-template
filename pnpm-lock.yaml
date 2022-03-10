@@ -125,6 +125,7 @@ importers:
       jsencrypt: ^3.2.1
       nprogress: ^0.2.0
       sass: ^1.49.8
+      sortablejs: ^1.14.0
       unplugin-auto-import: ^0.6.1
       unplugin-vue-components: ^0.17.20
       vite: ^2.8.4
@@ -136,7 +137,7 @@ importers:
       vue: ^3.2.31
       vue-cropper: ^1.0.2
       vue-router: ^4.0.12
-      vue2-3-form-design: workspace:*
+      vuedraggable: ^4.1.0
       vuex: ^4.0.2
     dependencies:
       '@element-plus/icons-vue': 0.2.7_vue@3.2.31
@@ -148,10 +149,11 @@ importers:
       js-cookie: 3.0.1
       jsencrypt: 3.2.1
       nprogress: 0.2.0
+      sortablejs: 1.14.0
       vue: 3.2.31
       vue-cropper: 1.0.2
       vue-router: 4.0.13_vue@3.2.31
-      vue2-3-form-design: link:../../vue-plugins/vue2-3-form-design
+      vuedraggable: 4.1.0_vue@3.2.31
       vuex: 4.0.2_vue@3.2.31
     devDependencies:
       '@vitejs/plugin-vue': 2.2.4_vite@2.8.5+vue@3.2.31
@@ -178,12 +180,12 @@ importers:
       vue-demi: ^0.12.1
       vue-tsc: ^0.32.1
     devDependencies:
-      '@vitejs/plugin-vue': 2.2.4_vue@3.2.31
+      '@vitejs/plugin-vue': 2.2.4_vite@2.8.5+vue@3.2.31
       element-plus: 2.0.4_vue@3.2.31
       sass: 1.49.9
       vue: 3.2.31
       vue-demi: 0.12.1_vue@3.2.31
-      vue-tsc: 0.32.1
+      vue-tsc: 0.32.1_typescript@4.6.2
 
 packages:
 
@@ -980,17 +982,7 @@ packages:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.8.5
-      vue: 3.2.31
-    dev: true
-
-  /@vitejs/plugin-vue/2.2.4_vue@3.2.31:
-    resolution: {integrity: sha512-ev9AOlp0ljCaDkFZF3JwC/pD2N4Hh+r5srl5JHM6BKg5+99jiiK0rE/XaRs3pVm1wzyKkjUy/StBSoXX5fFzcw==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      vite: ^2.5.10
-      vue: ^3.2.25
-    dependencies:
+      vite: 2.8.5_sass@1.49.9
       vue: 3.2.31
     dev: true
 
@@ -4515,6 +4507,10 @@ packages:
       use: 3.1.1
     dev: true
 
+  /sortablejs/1.14.0:
+    resolution: {integrity: sha512-pBXvQCs5/33fdN1/39pPL0NZF20LeRbLQ5jtnheIPN9JQAaufGjKdWduZn4U7wCtVuzKhmRkI0DFYHYRbB2H1w==}
+    dev: false
+
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
@@ -5576,13 +5572,14 @@ packages:
     resolution: {integrity: sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==}
     dev: true
 
-  /vue-tsc/0.32.1:
+  /vue-tsc/0.32.1_typescript@4.6.2:
     resolution: {integrity: sha512-HR34cFr14GDpV9WMX0kMxIAvieg735Q5sQ67MkIBEXtjuR2Yo5y43noiMMjoHZ6YqcjidXlCFbBiJrplLX/W7w==}
     hasBin: true
     peerDependencies:
       typescript: '*'
     dependencies:
       '@volar/shared': 0.32.1
+      typescript: 4.6.2
       vscode-vue-languageservice: 0.32.1
     dev: true
 
@@ -5598,6 +5595,15 @@ packages:
       '@vue/runtime-dom': 3.2.31
       '@vue/server-renderer': 3.2.31_vue@3.2.31
       '@vue/shared': 3.2.31
+
+  /vuedraggable/4.1.0_vue@3.2.31:
+    resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==}
+    peerDependencies:
+      vue: ^3.0.1
+    dependencies:
+      sortablejs: 1.14.0
+      vue: 3.2.31
+    dev: false
 
   /vuex/3.6.2_vue@2.6.14:
     resolution: {integrity: sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==}
